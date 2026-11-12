@@ -225,6 +225,10 @@ These notes are a summary, not legal advice; see [the research document](docs/re
 
 The last 2 versions of Chrome, Edge, Firefox and Safari (desktop), and Safari on iOS 16 and later. No Internet Explorer.
 
+## Disclaimer
+
+nagishon is a free public service, provided **as is**, without warranty of any kind and without any support or response obligation (see the MIT licence). Using it is your choice and your responsibility; it is not legal advice and does not make a site compliant with any law or standard. There is no contact channel for the maintainer besides the public GitHub issue tracker, which is read on a best-effort basis.
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md). In short: Node 24, `npm run check && npm run test:e2e`, logical CSS properties only, gender-neutral plural Hebrew copy. Security reports: [SECURITY.md](SECURITY.md). Release notes: [CHANGELOG.md](CHANGELOG.md).
