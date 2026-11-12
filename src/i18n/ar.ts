@@ -3,6 +3,7 @@ import type { Strings } from "./he";
 export const ar: Strings = {
   launcher: "إمكانية الوصول",
   title: "إعدادات إمكانية الوصول",
+  subtitle: "خصّصوا العرض بما يناسبكم.",
   close: "إغلاق القائمة",
   textSize: "حجم النص",
   increase: "تكبير النص",

@@ -3,6 +3,7 @@ import type { Strings } from "./he";
 export const en: Strings = {
   launcher: "Accessibility",
   title: "Accessibility settings",
+  subtitle: "Adjust the display to your comfort.",
   close: "Close menu",
   textSize: "Text size",
   increase: "Increase text size",

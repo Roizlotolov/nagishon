@@ -1,6 +1,7 @@
 export const he = {
   launcher: "נגישות",
   title: "התאמות נגישות",
+  subtitle: "התאימו את התצוגה לנוחות שלכם.",
   close: "סגירת התפריט",
   textSize: "גודל טקסט",
   increase: "הגדלת טקסט",

@@ -4,6 +4,7 @@
 
 First release.
 
+- Redesigned toolbar UI: pill launcher with icon, segmented text-size and contrast controls, icon rows with switches, secondary reset button. New options `launcher.shape` (`pill`/`circle`), `launcher.size` (`md`/`lg`) and `theme.preset` (`auto`/`light`/`dark`), plus matching `data-*` attributes (`data-offset-block`, `data-offset-inline`, `data-launcher-shape`, `data-launcher-size`, `data-launcher-label`, `data-theme`, `data-background`, `data-foreground`, `data-radius`).
 - Accessibility toolbar (תפריט נגישות) rendered in a Shadow DOM, isolated from host page CSS.
 - Text size 100%–200% (`elements` strategy by default, `root` strategy for rem-based sites).
 - Contrast modes (dark, light), grayscale, link underline, heading highlight, readable font, WCAG 1.4.12 text spacing, stop motion (animations, transitions, autoplay media), large cursor, reading guide.

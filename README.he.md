@@ -33,7 +33,7 @@
 <script src="https://cdn.jsdelivr.net/npm/nagishon@1/dist/prepaint.js"></script>
 ```
 
-מאפייני data שתג הסקריפט מכיר: `data-locale`, `data-position`, `data-statement-url`, `data-contact-url`, `data-hotkey`, `data-text-scaling`, `data-skip-link` (סלקטור, למשל `#main`), `data-accent`, `data-z-index`, `data-features` (רשימה מופרדת בפסיקים של התכונות היחידות להפעלה, למשל `textScale,contrast`), ו־`data-nagishon-manual` כדי לדלג על אתחול אוטומטי ולקרוא ל־`Nagishon.init()` בעצמכם.
+מאפייני data שתג הסקריפט מכיר: `data-locale`, `data-position`, `data-statement-url`, `data-contact-url`, `data-hotkey`, `data-text-scaling`, `data-skip-link` (סלקטור, למשל `#main`), `data-accent`, `data-background`, `data-foreground`, `data-radius`, `data-theme` (‏`auto`, ‏`light`, ‏`dark`), `data-offset-block`, `data-offset-inline`, `data-launcher-shape` (‏`pill`, ‏`circle`), `data-launcher-size` (‏`md`, ‏`lg`), `data-launcher-label`, `data-z-index`, `data-features` (רשימה מופרדת בפסיקים של התכונות היחידות להפעלה, למשל `textScale,contrast`), ו־`data-nagishon-manual` כדי לדלג על אתחול אוטומטי ולקרוא ל־`Nagishon.init()` בעצמכם.
 
 ```html
 <script>
@@ -113,15 +113,15 @@ function OpenButton() {
 | `locale` | `"he" \| "en" \| "ar" \| "ru"` (כל מחרוזת אחרת חוזרת ל־`"he"`) | `"he"` | שפת הממשק. |
 | `dir` | `"rtl" \| "ltr"` | לפי השפה (`he`, `ar` הן RTL) | כיוון הטקסט בתפריט. |
 | `position` | `"start" \| "end"` | `"start"` | הצד הלוגי של הכפתור: `start` הוא הצד הימני בדף עברי (RTL) והשמאלי בדף LTR. |
-| `offset` | `{ block?: number; inline?: number }` | `{ block: 20, inline: 20 }` | מרחק בפיקסלים מקצוות החלון. |
+| `offset` | `{ block?: number; inline?: number }` | `{ block: 20, inline: 20 }` | מרחק בפיקסלים מהקצה התחתון (`block`) ומהצד שנבחר ב־`position` (`inline`). |
 | `statementUrl` | `string` | אין | קישור «הצהרת נגישות». אם לא מוגדר, הקישור לא מוצג. מומלץ מאוד (תקנה 35ה). |
 | `contactUrl` | `string` | אין | קישור אופציונלי «דיווח על בעיית נגישות» (`mailto:`, `tel:` או `https:`). |
 | `hotkey` | `string \| false` | `"Alt+Shift+A"` | קיצור לפתיחה וסגירה, בפורמט `Mod+Key` כש־Mod הוא `Alt`, `Ctrl`, `Shift` או `Meta`, מחוברים ב־`+`. `false` מכבה אותו. |
 | `textScaling` | `"elements" \| "root"` | `"elements"` | אסטרטגיית הגדלת הטקסט, ראו בהמשך. |
 | `skipLink` | `{ target: string; label?: string } \| false` | `false` | מוסיף קישור «דילוג לתוכן המרכזי» כאלמנט הראשון ב־`<body>`. |
 | `features` | `Partial<Record<keyof NagishonState, boolean>>` | הכול `true` | הסתרת בקרות בודדות, למשל `{ bigCursor: false }`. |
-| `theme` | `Partial<{ accent: string; background: string; foreground: string; radius: string; zIndex: number }>` | ערכת נושא בהירה/כהה מובנית | התאמות ויזואליות, ראו «עיצוב». |
-| `launcher` | `{ label?: string; showText?: boolean; hidden?: boolean }` | `{ showText: true, hidden: false }` | `hidden: true` מסיר את הכפתור המובנה וקוראים ל־`open()` בעצמכם. `showText: false` מציג אייקון בלבד (השם הנגיש מגיע מ־`label`). |
+| `theme` | `Partial<{ preset: "auto" \| "light" \| "dark"; accent: string; background: string; foreground: string; radius: string; zIndex: number }>` | `{ preset: "auto" }` | התאמות ויזואליות, ראו «עיצוב». `auto` עוקב אחרי `prefers-color-scheme`. |
+| `launcher` | `{ label?: string; showText?: boolean; hidden?: boolean; shape?: "pill" \| "circle"; size?: "md" \| "lg" }` | `{ shape: "pill", size: "md", showText: true, hidden: false }` | `shape: "circle"` (או `showText: false`) מציג אייקון בלבד (השם הנגיש מגיע מ־`label`). `size`: ‏`md` הוא 48px, ‏`lg` הוא 56px. `hidden: true` מסיר את הכפתור המובנה וקוראים ל־`open()` בעצמכם. |
 | `initialState` | `Partial<NagishonState>` | אין | מוחל רק כשאין למבקר מצב שמור. |
 | `storageKey` | `string` | `"nagishon:v1"` | מפתח ב־`localStorage`. אם שיניתם אותו, העבירו את אותו מפתח לסקריפט ה־pre-paint (`prepaintScript(key)` מתוך `nagishon/prepaint`). |
 | `onChange` | `(state: NagishonState) => void` | אין | נקרא אחרי כל שינוי. |
@@ -161,6 +161,27 @@ window.addEventListener("nagishon:change", (e) => console.log(e.detail.textScale
 
 ```ts
 init({ theme: { accent: "#0b4aa8", radius: "8px", zIndex: 10000 } });
+```
+
+`theme.preset` הוא `"auto"` כברירת מחדל (עוקב אחרי `prefers-color-scheme`); `"light"` או `"dark"` כופים ערכה אחת.
+
+### מיקום וצבע הכפתור
+
+`position` בוחר צד (`"start"` הוא הקצה הימני בדפי RTL והשמאלי בדפי LTR, ‏`"end"` ההפך) ו־`offset` את המרחק בפיקסלים מהתחתית ומאותו צד. `theme.accent` צובע את הכפתור ואת הבקרים הנבחרים; הטקסט עליו הופך לשחור או ללבן אוטומטית.
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/nagishon@1/dist/nagishon.iife.js" defer data-nagishon
+  data-position="end" data-offset-block="24" data-offset-inline="16"
+  data-launcher-shape="circle" data-launcher-size="lg" data-accent="#ff6a00" data-theme="dark"></script>
+```
+
+```ts
+init({
+  position: "end",
+  offset: { block: 24, inline: 16 },
+  launcher: { shape: "circle", size: "lg" },
+  theme: { accent: "#ff6a00", preset: "dark" },
+});
 ```
 
 שימו לב לניגודיות: טקסט על צבע ה־`accent` וה־`background` שלכם צריך להגיע ל־4.5:1, וגבולות רכיבי ממשק ל־3:1. התפריט עובר אוטומטית לגרסה כהה לפי `prefers-color-scheme: dark`, ולצבעי שחור/לבן/צהוב מפורשים כשהדף במצב ניגודיות גבוהה.

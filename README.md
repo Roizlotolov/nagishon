@@ -33,7 +33,7 @@ Optional, avoids a flash of unstyled settings on repeat visits. Put this **in `<
 <script src="https://cdn.jsdelivr.net/npm/nagishon@1/dist/prepaint.js"></script>
 ```
 
-Data attributes understood by the script tag: `data-locale`, `data-position`, `data-statement-url`, `data-contact-url`, `data-hotkey`, `data-text-scaling`, `data-skip-link` (a selector, e.g. `#main`), `data-accent`, `data-z-index`, `data-features` (comma-separated list of the only features to enable, e.g. `textScale,contrast`), and `data-nagishon-manual` to skip auto-init and call `Nagishon.init()` yourself.
+Data attributes understood by the script tag: `data-locale`, `data-position`, `data-statement-url`, `data-contact-url`, `data-hotkey`, `data-text-scaling`, `data-skip-link` (a selector, e.g. `#main`), `data-accent`, `data-background`, `data-foreground`, `data-radius`, `data-theme` (`auto`, `light`, `dark`), `data-offset-block`, `data-offset-inline`, `data-launcher-shape` (`pill`, `circle`), `data-launcher-size` (`md`, `lg`), `data-launcher-label`, `data-z-index`, `data-features` (comma-separated list of the only features to enable, e.g. `textScale,contrast`), and `data-nagishon-manual` to skip auto-init and call `Nagishon.init()` yourself.
 
 ```html
 <script>
@@ -113,15 +113,15 @@ function OpenButton() {
 | `locale` | `"he" \| "en" \| "ar" \| "ru"` (any string falls back to `"he"`) | `"he"` | UI language. |
 | `dir` | `"rtl" \| "ltr"` | from locale (`he`, `ar` are RTL) | Text direction of the widget. |
 | `position` | `"start" \| "end"` | `"start"` | Logical inline side of the launcher: `start` is the right edge in RTL pages and the left edge in LTR pages. |
-| `offset` | `{ block?: number; inline?: number }` | `{ block: 20, inline: 20 }` | Distance in px from the viewport edges. |
+| `offset` | `{ block?: number; inline?: number }` | `{ block: 20, inline: 20 }` | Distance in px from the bottom edge (`block`) and from the edge chosen by `position` (`inline`). |
 | `statementUrl` | `string` | none | Link «הצהרת נגישות». If omitted, the link is not rendered. Strongly recommended (regulation 35ה). |
 | `contactUrl` | `string` | none | Optional link «דיווח על בעיית נגישות» (`mailto:`, `tel:` or `https:`). |
 | `hotkey` | `string \| false` | `"Alt+Shift+A"` | Open/close shortcut, `Mod+Key` with Mod in `Alt`, `Ctrl`, `Shift`, `Meta` joined by `+`. `false` disables it. |
 | `textScaling` | `"elements" \| "root"` | `"elements"` | Text size strategy, see below. |
 | `skipLink` | `{ target: string; label?: string } \| false` | `false` | Injects a "skip to main content" link as the first element of `<body>`. |
 | `features` | `Partial<Record<keyof NagishonState, boolean>>` | all `true` | Hide individual controls, e.g. `{ bigCursor: false }`. |
-| `theme` | `Partial<{ accent: string; background: string; foreground: string; radius: string; zIndex: number }>` | built-in light/dark theme | Visual overrides, see Theming. |
-| `launcher` | `{ label?: string; showText?: boolean; hidden?: boolean }` | `{ showText: true, hidden: false }` | `hidden: true` removes the built-in button; call `open()` yourself. `showText: false` shows the icon only (the accessible name comes from `label`). |
+| `theme` | `Partial<{ preset: "auto" \| "light" \| "dark"; accent: string; background: string; foreground: string; radius: string; zIndex: number }>` | `{ preset: "auto" }` | Visual overrides, see Theming. |
+| `launcher` | `{ label?: string; showText?: boolean; hidden?: boolean; shape?: "pill" \| "circle"; size?: "md" \| "lg" }` | `{ shape: "pill", size: "md", showText: true, hidden: false }` | `shape: "circle"` (or `showText: false`) shows the icon only (the accessible name comes from `label`). `size`: `md` is 48px, `lg` is 56px. `hidden: true` removes the built-in button; call `open()` yourself. |
 | `initialState` | `Partial<NagishonState>` | none | Applied only when the visitor has no stored state. |
 | `storageKey` | `string` | `"nagishon:v1"` | `localStorage` key. If you change it, pass the same key to the pre-paint script (`prepaintScript(key)` from `nagishon/prepaint`). |
 | `onChange` | `(state: NagishonState) => void` | none | Called after every change. |
@@ -161,6 +161,27 @@ Pass the `theme` option; values are plain CSS values.
 
 ```ts
 init({ theme: { accent: "#0b4aa8", radius: "8px", zIndex: 10000 } });
+```
+
+`theme.preset` is `"auto"` by default (follows `prefers-color-scheme`); use `"light"` or `"dark"` to force one.
+
+### Launcher position and colour
+
+`position` picks the side (`"start"` is the right edge on RTL pages, the left edge on LTR pages, `"end"` the opposite) and `offset` the distance in px from the bottom and from that side. `theme.accent` colours the launcher and the selected controls; the text on it turns black or white automatically.
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/nagishon@1/dist/nagishon.iife.js" defer data-nagishon
+  data-position="end" data-offset-block="24" data-offset-inline="16"
+  data-launcher-shape="circle" data-launcher-size="lg" data-accent="#ff6a00" data-theme="dark"></script>
+```
+
+```ts
+init({
+  position: "end",
+  offset: { block: 24, inline: 16 },
+  launcher: { shape: "circle", size: "lg" },
+  theme: { accent: "#ff6a00", preset: "dark" },
+});
 ```
 
 Keep contrast in mind: text on your `accent` and `background` colors should reach 4.5:1 and UI boundaries 3:1. The widget picks a dark variant automatically with `prefers-color-scheme: dark`, and switches to explicit black/white/yellow colors while the page is in a high-contrast mode.

@@ -30,6 +30,29 @@ describe("optionsFromDataset", () => {
     expect(o.features?.textScale).toBe(true);
     expect(o.features?.contrast).toBe(false);
   });
+  it("parses launcher position, shape, size, label and theme attributes", () => {
+    const o = optionsFromDataset({
+      offsetBlock: "32",
+      offsetInline: "0",
+      launcherShape: "circle",
+      launcherSize: "lg",
+      launcherLabel: "Help",
+      theme: "dark",
+      background: "#101010",
+      foreground: "#fafafa",
+      radius: "8px",
+      accent: "#ff6a00",
+    });
+    expect(o).toEqual({
+      offset: { block: 32, inline: 0 },
+      launcher: { shape: "circle", size: "lg", label: "Help" },
+      theme: { preset: "dark", background: "#101010", foreground: "#fafafa", radius: "8px", accent: "#ff6a00" },
+    });
+  });
+  it("ignores invalid launcher and theme values", () => {
+    const o = optionsFromDataset({ offsetBlock: "x", offsetInline: "", launcherShape: "square", launcherSize: "xl", theme: "sepia" });
+    expect(o).toEqual({});
+  });
   it("ignores invalid values and supports hotkey off", () => {
     const o = optionsFromDataset({ position: "left", textScaling: "x", zIndex: "abc", hotkey: "false" });
     expect(o).toEqual({ hotkey: false });

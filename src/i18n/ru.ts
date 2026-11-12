@@ -3,6 +3,7 @@ import type { Strings } from "./he";
 export const ru: Strings = {
   launcher: "Доступность",
   title: "Настройки доступности",
+  subtitle: "Настройте отображение под себя.",
   close: "Закрыть меню",
   textSize: "Размер текста",
   increase: "Увеличить текст",

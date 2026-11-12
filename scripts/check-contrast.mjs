@@ -1,10 +1,20 @@
 // WCAG 2.x contrast check for the nagishon widget palettes. Exits 1 on any failure.
 // Usage: node scripts/check-contrast.mjs [--markdown]
 const themes = {
-  "Light (default)": { bg: "#ffffff", fg: "#111111", ac: "#0b57d0", on: "#ffffff", mut: "#4d4d4d", line: "#767676" },
-  "Dark (prefers-color-scheme)": { bg: "#1b1b1f", fg: "#f2f2f2", ac: "#8ab4f8", on: "#1b1b1f", mut: "#c4c4cc", line: "#8f8f99" },
-  "High contrast (page contrast dark)": { bg: "#000000", fg: "#ffffff", ac: "#ffeb3b", on: "#000000", mut: "#ffffff", line: "#ffffff" },
+  "Light": { bg: "#ffffff", surf: "#f4f5f8", fg: "#111318", ac: "#0b57d0", on: "#ffffff", mut: "#5f6470", bd: "#d9dbe3", ctl: "#737885" },
+  "Dark (prefers-color-scheme or theme.preset dark)": { bg: "#17181c", surf: "#1f2127", fg: "#f1f2f6", ac: "#8ab4f8", on: "#17181c", mut: "#b7bbc7", bd: "#353842", ctl: "#8a8f9e" },
+  "High contrast (page contrast dark)": { bg: "#000000", surf: "#000000", fg: "#ffffff", ac: "#ffeb3b", on: "#000000", mut: "#ffffff", bd: "#ffffff", ctl: "#ffffff" },
 };
+/** sRGB mix of two hex colours (pct of a), like CSS color-mix(in srgb). */
+function mix(a, b, pct) {
+  const n = (h) => [16, 8, 0].map((s) => (parseInt(h.slice(1), 16) >> s) & 255);
+  const [x, y] = [n(a), n(b)];
+  return "#" + x.map((v, i) => Math.round(v * pct + y[i] * (1 - pct)).toString(16).padStart(2, "0")).join("");
+}
+for (const t of Object.values(themes)) {
+  t.badge = mix(t.ac, t.bg, 0.14); // header badge tint
+  t.hover = mix(t.fg, t.surf, 0.06); // hover tint over the card
+}
 
 function lin(v) {
   v /= 255;
@@ -22,18 +32,25 @@ function ratio(a, b) {
 // [description, foreground key, background key, kind]
 const pairs = [
   ["Body text on panel", "fg", "bg", "text"],
-  ["Muted text (hint, credit) on panel", "mut", "bg", "text"],
+  ["Body text on card (segments, rows, kbd)", "fg", "surf", "text"],
+  ["Body text on hovered row", "fg", "hover", "text"],
+  ["Muted text (subtitle, labels, credit) on panel", "mut", "bg", "text"],
+  ["Muted text (row icons, hint) on card", "mut", "surf", "text"],
+  ["Muted text on hovered row", "mut", "hover", "text"],
   ["Link text on panel", "ac", "bg", "text"],
-  ["Pressed button / launcher text on accent", "on", "ac", "text"],
-  ["Switch check glyph (accent) on thumb", "ac", "on", "text"],
-  ["Control border on panel", "line", "bg", "ui"],
-  ["Switch track (off) on panel", "line", "bg", "ui"],
-  ["Switch thumb on track (off)", "on", "line", "ui"],
-  ["Switch track (on) on panel", "ac", "bg", "ui"],
-  ["Switch thumb on track (on)", "on", "ac", "ui"],
+  ["Launcher / selected segment text on accent", "on", "ac", "text"],
+  ["Switch check glyph (accent) on thumb", "ac", "bg", "text"],
+  ["Header badge glyph on accent tint", "ac", "badge", "ui"],
+  ["Selected segment fill on card", "ac", "surf", "ui"],
+  ["Switch track (off) on card", "ctl", "surf", "ui"],
+  ["Switch thumb on track (off)", "bg", "ctl", "ui"],
+  ["Switch track (on) on card", "ac", "surf", "ui"],
+  ["Switch thumb on track (on)", "bg", "ac", "ui"],
+  ["Reset button border on panel", "ctl", "bg", "ui"],
   ["Focus ring on panel", "ac", "bg", "ui"],
+  ["Focus ring on card", "ac", "surf", "ui"],
   ["Launcher focus ring (fg) on its bg gap", "fg", "bg", "ui"],
-  ["Pressed button fill on panel", "ac", "bg", "ui"],
+  ["Launcher fill (accent) on panel bg", "ac", "bg", "ui"],
 ];
 
 let failed = false;

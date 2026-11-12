@@ -9,6 +9,7 @@ export interface NagishonOptions {
   locale?: Locale | (string & {});
   dir?: "rtl" | "ltr";
   position?: "start" | "end";
+  /** Distance in px from the bottom edge (`block`) and from the `position` side edge (`inline`). Default 20/20. */
   offset?: { block?: number; inline?: number };
   statementUrl?: string;
   contactUrl?: string;
@@ -16,8 +17,25 @@ export interface NagishonOptions {
   textScaling?: "elements" | "root";
   skipLink?: { target: string; label?: string } | false;
   features?: Partial<Record<keyof NagishonState, boolean>>;
-  theme?: Partial<{ accent: string; background: string; foreground: string; radius: string; zIndex: number }>;
-  launcher?: { label?: string; showText?: boolean; hidden?: boolean };
+  theme?: Partial<{
+    /** `"auto"` (default) follows `prefers-color-scheme`. */
+    preset: "auto" | "light" | "dark";
+    /** Launcher and selected-control colour. Text on it is picked automatically (black or white). */
+    accent: string;
+    background: string;
+    foreground: string;
+    radius: string;
+    zIndex: number;
+  }>;
+  launcher?: {
+    label?: string;
+    showText?: boolean;
+    hidden?: boolean;
+    /** `"pill"` (icon + label, default) or `"circle"` (icon only). */
+    shape?: "pill" | "circle";
+    /** `"md"` = 48px (default), `"lg"` = 56px. */
+    size?: "md" | "lg";
+  };
   initialState?: Partial<NagishonState>;
   storageKey?: string;
   onChange?: (state: NagishonState) => void;

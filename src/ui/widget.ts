@@ -56,8 +56,30 @@ const CONTRASTS: [string, StringKey][] = [
   ["light", "contrastLight"],
 ];
 
-const ICON =
-  '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="4.5" r="2.5"/><path d="M5 8.5h14v2.2h-5.2v3.6l2.4 6.2-2.1.8L12 15.9l-2.1 5.4-2.1-.8 2.4-6.2v-3.6H5z"/></svg>';
+const svg = (d: string, cls = "") =>
+  '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"' + (cls ? ' class="' + cls + '"' : "") + '><path d="' + d + '"/></svg>';
+/** Filled person glyph (launcher and header badge). */
+const PERSON = svg("M12 2a2.6 2.6 0 1 1 0 5.2A2.6 2.6 0 0 1 12 2zM5 8.5h14v2.2h-5.2v3.6l2.4 6.2-2.1.8L12 15.9l-2.1 5.4-2.1-.8 2.4-6.2v-3.6H5z", "fill");
+/** 24-box line icons, one path each. */
+const ICONS: Record<string, string> = {
+  grayscale: "M12 3v18M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z",
+  underlineLinks: "M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1",
+  highlightHeadings: "M6 4v16M18 4v16M6 12h12",
+  readableFont: "M2.5 19 7.5 5l5 14M4.6 14h5.8M21 19v-7M21 15a3 3 0 1 1-6 0 3 3 0 0 1 6 0z",
+  textSpacing: "M4 4v16M20 4v16M8 12h8M8 12l2.5-2.5M8 12l2.5 2.5M16 12l-2.5-2.5M16 12l-2.5 2.5",
+  stopMotion: "M8 5h2.5v14H8zM13.5 5H16v14h-2.5z",
+  bigCursor: "M5 3l14 7-6 2-2 6z",
+  readingGuide: "M3 8h18v8H3zM7 8v3M11 8v2M15 8v3M19 8v2",
+  undo: "M9 14 4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3",
+  close: "M6 6l12 12M18 6 6 18",
+  darkGlyph: "M12 4a8 8 0 0 0 0 16zM12 4a8 8 0 1 1 0 16 8 8 0 0 1 0-16z",
+  lightGlyph: "M12 4a8 8 0 1 1 0 16 8 8 0 0 1 0-16z",
+};
+const ico = (k: string): HTMLElement => {
+  const e = h("span", { class: "ico", "aria-hidden": "true" });
+  e.innerHTML = svg(ICONS[k], k === "darkGlyph" ? "half" : "");
+  return e;
+};
 
 /** Picks a readable text color for an arbitrary hex accent. */
 function onColor(hex: string): string | undefined {
@@ -90,6 +112,8 @@ export function createWidget(cfg: WidgetConfig): Widget {
   const hs = host.style;
   const th = options.theme || {};
   const off = options.offset || {};
+  if (th.preset === "light" || th.preset === "dark") host.setAttribute("data-theme", th.preset);
+  host.setAttribute("data-size", options.launcher?.size === "lg" ? "lg" : "md");
   hs.setProperty("--ob", (off.block ?? 20) + "px");
   hs.setProperty("--oi", (off.inline ?? 20) + "px");
   if (th.accent) {
@@ -97,7 +121,10 @@ export function createWidget(cfg: WidgetConfig): Widget {
     const oc = onColor(th.accent);
     if (oc) hs.setProperty("--nagishon-u-on", oc);
   }
-  if (th.background) hs.setProperty("--nagishon-u-bg", th.background);
+  if (th.background) {
+    hs.setProperty("--nagishon-u-bg", th.background);
+    hs.setProperty("--nagishon-u-surf", "color-mix(in srgb,var(--fg) 5%,var(--bg))");
+  }
   if (th.foreground) hs.setProperty("--nagishon-u-fg", th.foreground);
   if (th.radius) hs.setProperty("--nagishon-u-radius", th.radius);
   if (th.zIndex !== undefined) hs.setProperty("--nagishon-z", String(th.zIndex));
@@ -110,10 +137,10 @@ export function createWidget(cfg: WidgetConfig): Widget {
 
   // Launcher
   const lo = options.launcher || {};
-  const showText = lo.showText !== false;
+  const showText = lo.showText !== false && lo.shape !== "circle";
   const label = lo.label || tr("launcher");
-  const iconEl = h("span", { "aria-hidden": "true", style: "display:inline-flex" });
-  iconEl.innerHTML = ICON;
+  const iconEl = h("span", { "aria-hidden": "true", class: "ico" });
+  iconEl.innerHTML = PERSON;
   const launcher = lo.hidden
     ? null
     : h(
@@ -133,11 +160,13 @@ export function createWidget(cfg: WidgetConfig): Widget {
 
   // Dialog
   const title = h("h2", { id: "nagishon-title", tabindex: "-1" }, tr("title"));
-  const closeBtn = h("button", { type: "button", "data-action": "close", "aria-label": tr("close") }, "✕");
+  const closeBtn = h("button", { type: "button", class: "close", "data-action": "close", "aria-label": tr("close") }, ico("close"));
+  const badge = h("span", { class: "badge", "aria-hidden": "true" });
+  badge.innerHTML = PERSON;
   const panel = h(
     "div",
     { role: "dialog", "aria-modal": "true", "aria-labelledby": "nagishon-title", id: "nagishon-dialog", class: "panel", hidden: true },
-    h("div", { class: "head" }, title, closeBtn),
+    h("div", { class: "head" }, badge, h("div", { class: "heading" }, title, h("p", { class: "sub" }, tr("subtitle"))), closeBtn),
   );
   const backdrop = h("div", { class: "backdrop", hidden: true });
 
@@ -145,12 +174,12 @@ export function createWidget(cfg: WidgetConfig): Widget {
   const pressable = (
     key: string,
     value: string,
-    text: string,
+    text: Kid[],
     isOn: () => boolean,
     patch: Partial<NagishonState>,
     msg: () => string,
   ) => {
-    const b = h("button", { type: "button", "data-key": key, "data-value": value, "aria-pressed": "false", dir: "ltr" }, text);
+    const b = h("button", { type: "button", "data-key": key, "data-value": value, "aria-pressed": "false", dir: "ltr" }, ...text);
     if (key === "contrast") b.removeAttribute("dir");
     b.addEventListener("click", () => {
       cfg.onSet(patch);
@@ -180,10 +209,10 @@ export function createWidget(cfg: WidgetConfig): Widget {
         h("legend", {}, tr("textSize")),
         h(
           "div",
-          { class: "row sizes", role: "group", "aria-label": tr("textSize") },
+          { class: "seg sizes", role: "group", "aria-label": tr("textSize") },
           step("decrease", "−", -1),
           ...TEXT_SCALES.map((s) =>
-            pressable("textScale", String(s), pct(s), () => state.textScale === s, { textScale: s }, () =>
+            pressable("textScale", String(s), [pct(s)], () => state.textScale === s, { textScale: s }, () =>
               tr("announceTextSize", { value: pct(s) }),
             ),
           ),
@@ -201,9 +230,9 @@ export function createWidget(cfg: WidgetConfig): Widget {
         h("legend", {}, tr("contrast")),
         h(
           "div",
-          { class: "row", role: "group", "aria-label": tr("contrast") },
+          { class: "seg", role: "group", "aria-label": tr("contrast") },
           ...CONTRASTS.map(([v, k]) =>
-            pressable("contrast", v, tr(k), () => state.contrast === v, { contrast: v as NagishonState["contrast"] }, () =>
+            pressable("contrast", v, [v === "none" ? "" : ico(v === "dark" ? "darkGlyph" : "lightGlyph"), h("span", {}, tr(k))], () => state.contrast === v, { contrast: v as NagishonState["contrast"] }, () =>
               tr("contrast") + ": " + tr(k),
             ),
           ),
@@ -218,7 +247,8 @@ export function createWidget(cfg: WidgetConfig): Widget {
     const sw = h(
       "button",
       { type: "button", role: "switch", "aria-checked": "false", "data-key": key, class: "sw" },
-      h("span", {}, tr(sk)),
+      ico(key),
+      h("span", { class: "lbl" }, tr(sk)),
       h("span", { class: "track", "aria-hidden": "true" }, h("span", { class: "thumb" }, "✓")),
     );
     sw.addEventListener("click", () => {
@@ -232,19 +262,23 @@ export function createWidget(cfg: WidgetConfig): Widget {
   if (list.childElementCount) panel.append(list);
 
   const foot = h("div", { class: "foot" });
-  const reset = h("button", { type: "button", class: "reset", "data-action": "reset" }, tr("reset"));
+  const reset = h("button", { type: "button", class: "reset", "data-action": "reset" }, ico("undo"), h("span", {}, tr("reset")));
   reset.addEventListener("click", () => {
     cfg.onReset();
     announce(tr("resetDone"));
   });
   foot.append(reset);
-  if (options.statementUrl) foot.append(h("a", { href: options.statementUrl }, tr("statement")));
-  if (options.contactUrl) foot.append(h("a", { href: options.contactUrl }, tr("contact")));
+  const links = h("div", { class: "links" });
+  if (options.statementUrl) links.append(h("a", { href: options.statementUrl }, tr("statement")));
+  if (options.contactUrl) links.append(h("a", { href: options.contactUrl }, tr("contact")));
+  if (links.childElementCount) foot.append(links);
+  const meta = h("div", { class: "meta" });
   if (options.hotkey !== false) {
     const parts = tr("hotkeyHint", { hotkey: "\u0000" }).split("\u0000");
-    foot.append(h("p", { class: "hint" }, parts[0], h("bdi", { dir: "ltr" }, formatHotkey(options.hotkey || "Alt+Shift+A")), parts[1] || ""));
+    meta.append(h("p", { class: "hint" }, parts[0], h("kbd", { dir: "ltr" }, formatHotkey(options.hotkey || "Alt+Shift+A")), parts[1] || ""));
   }
-  foot.append(h("a", { class: "credit", href: "https://github.com/zloto-labs/nagishon", rel: "noopener", target: "_blank" }, tr("poweredBy")));
+  meta.append(h("a", { class: "credit", href: "https://github.com/zloto-labs/nagishon", rel: "noopener", target: "_blank" }, tr("poweredBy")));
+  foot.append(meta);
   panel.append(foot);
 
   root.append(h("style", {}, css), backdrop, panel, live);
