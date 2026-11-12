@@ -33,7 +33,7 @@
 <script src="https://cdn.jsdelivr.net/npm/nagishon@1/dist/prepaint.js"></script>
 ```
 
-מאפייני data שתג הסקריפט מכיר: `data-locale`, `data-position`, `data-statement-url`, `data-contact-url`, `data-hotkey`, `data-text-scaling`, `data-skip-link` (סלקטור, למשל `#main`), `data-accent`, `data-background`, `data-foreground`, `data-radius`, `data-theme` (‏`auto`, ‏`light`, ‏`dark`), `data-offset-block`, `data-offset-inline`, `data-launcher-shape` (‏`pill`, ‏`circle`), `data-launcher-size` (‏`md`, ‏`lg`), `data-launcher-label`, `data-z-index`, `data-features` (רשימה מופרדת בפסיקים של התכונות היחידות להפעלה, למשל `textScale,contrast`), ו־`data-nagishon-manual` כדי לדלג על אתחול אוטומטי ולקרוא ל־`Nagishon.init()` בעצמכם.
+מאפייני data שתג הסקריפט מכיר: `data-locale`, `data-position`, `data-statement-url`, `data-contact-url`, `data-hotkey`, `data-text-scaling`, `data-skip-link` (סלקטור, למשל `#main`), `data-accent`, `data-background`, `data-foreground`, `data-radius`, `data-theme` (‏`auto`, ‏`light`, ‏`dark`), `data-offset-block`, `data-offset-inline`, `data-launcher-shape` (‏`pill`, ‏`circle`), `data-launcher-size` (‏`md`, ‏`lg`), `data-launcher-icon` (‏`solid`, ‏`outline`), `data-launcher-style` (‏`accent`, ‏`neutral`), `data-launcher-label`, `data-z-index`, `data-features` (רשימה מופרדת בפסיקים של התכונות היחידות להפעלה, למשל `textScale,contrast`), ו־`data-nagishon-manual` כדי לדלג על אתחול אוטומטי ולקרוא ל־`Nagishon.init()` בעצמכם.
 
 ```html
 <script>
@@ -121,7 +121,7 @@ function OpenButton() {
 | `skipLink` | `{ target: string; label?: string } \| false` | `false` | מוסיף קישור «דילוג לתוכן המרכזי» כאלמנט הראשון ב־`<body>`. |
 | `features` | `Partial<Record<keyof NagishonState, boolean>>` | הכול `true` | הסתרת בקרות בודדות, למשל `{ bigCursor: false }`. |
 | `theme` | `Partial<{ preset: "auto" \| "light" \| "dark"; accent: string; background: string; foreground: string; radius: string; zIndex: number }>` | `{ preset: "auto" }` | התאמות ויזואליות, ראו «עיצוב». `auto` עוקב אחרי `prefers-color-scheme`. |
-| `launcher` | `{ label?: string; showText?: boolean; hidden?: boolean; shape?: "pill" \| "circle"; size?: "md" \| "lg" }` | `{ shape: "pill", size: "md", showText: true, hidden: false }` | `shape: "circle"` (או `showText: false`) מציג אייקון בלבד (השם הנגיש מגיע מ־`label`). `size`: ‏`md` הוא 48px, ‏`lg` הוא 56px. `hidden: true` מסיר את הכפתור המובנה וקוראים ל־`open()` בעצמכם. |
+| `launcher` | `{ label?: string; showText?: boolean; hidden?: boolean; shape?: "pill" \| "circle"; size?: "md" \| "lg"; icon?: "solid" \| "outline"; style?: "accent" \| "neutral" }` | `{ shape: "pill", size: "md", icon: "solid", style: "accent", showText: true, hidden: false }` | `shape: "circle"` (או `showText: false`) מציג אייקון בלבד (השם הנגיש מגיע מ־`label`). `size`: ‏`md` הוא 48px, ‏`lg` הוא 56px. `icon: "outline"` הוא סמל הנגישות הקווי המוכר; `style: "neutral"` נותן עיגול בצבע הרקע עם מסגרת דקה במקום מילוי ב־accent. `hidden: true` מסיר את הכפתור המובנה וקוראים ל־`open()` בעצמכם. |
 | `initialState` | `Partial<NagishonState>` | אין | מוחל רק כשאין למבקר מצב שמור. |
 | `storageKey` | `string` | `"nagishon:v1"` | מפתח ב־`localStorage`. אם שיניתם אותו, העבירו את אותו מפתח לסקריפט ה־pre-paint (`prepaintScript(key)` מתוך `nagishon/prepaint`). |
 | `onChange` | `(state: NagishonState) => void` | אין | נקרא אחרי כל שינוי. |

@@ -33,7 +33,7 @@ Optional, avoids a flash of unstyled settings on repeat visits. Put this **in `<
 <script src="https://cdn.jsdelivr.net/npm/nagishon@1/dist/prepaint.js"></script>
 ```
 
-Data attributes understood by the script tag: `data-locale`, `data-position`, `data-statement-url`, `data-contact-url`, `data-hotkey`, `data-text-scaling`, `data-skip-link` (a selector, e.g. `#main`), `data-accent`, `data-background`, `data-foreground`, `data-radius`, `data-theme` (`auto`, `light`, `dark`), `data-offset-block`, `data-offset-inline`, `data-launcher-shape` (`pill`, `circle`), `data-launcher-size` (`md`, `lg`), `data-launcher-label`, `data-z-index`, `data-features` (comma-separated list of the only features to enable, e.g. `textScale,contrast`), and `data-nagishon-manual` to skip auto-init and call `Nagishon.init()` yourself.
+Data attributes understood by the script tag: `data-locale`, `data-position`, `data-statement-url`, `data-contact-url`, `data-hotkey`, `data-text-scaling`, `data-skip-link` (a selector, e.g. `#main`), `data-accent`, `data-background`, `data-foreground`, `data-radius`, `data-theme` (`auto`, `light`, `dark`), `data-offset-block`, `data-offset-inline`, `data-launcher-shape` (`pill`, `circle`), `data-launcher-size` (`md`, `lg`), `data-launcher-icon` (`solid`, `outline`), `data-launcher-style` (`accent`, `neutral`), `data-launcher-label`, `data-z-index`, `data-features` (comma-separated list of the only features to enable, e.g. `textScale,contrast`), and `data-nagishon-manual` to skip auto-init and call `Nagishon.init()` yourself.
 
 ```html
 <script>
@@ -121,7 +121,7 @@ function OpenButton() {
 | `skipLink` | `{ target: string; label?: string } \| false` | `false` | Injects a "skip to main content" link as the first element of `<body>`. |
 | `features` | `Partial<Record<keyof NagishonState, boolean>>` | all `true` | Hide individual controls, e.g. `{ bigCursor: false }`. |
 | `theme` | `Partial<{ preset: "auto" \| "light" \| "dark"; accent: string; background: string; foreground: string; radius: string; zIndex: number }>` | `{ preset: "auto" }` | Visual overrides, see Theming. |
-| `launcher` | `{ label?: string; showText?: boolean; hidden?: boolean; shape?: "pill" \| "circle"; size?: "md" \| "lg" }` | `{ shape: "pill", size: "md", showText: true, hidden: false }` | `shape: "circle"` (or `showText: false`) shows the icon only (the accessible name comes from `label`). `size`: `md` is 48px, `lg` is 56px. `hidden: true` removes the built-in button; call `open()` yourself. |
+| `launcher` | `{ label?: string; showText?: boolean; hidden?: boolean; shape?: "pill" \| "circle"; size?: "md" \| "lg"; icon?: "solid" \| "outline"; style?: "accent" \| "neutral" }` | `{ shape: "pill", size: "md", showText: true, hidden: false }` | `shape: "circle"` (or `showText: false`) shows the icon only (the accessible name comes from `label`). `size`: `md` is 48px, `lg` is 56px. `hidden: true` removes the built-in button; call `open()` yourself. `icon: "outline"` is the classic stroke accessibility mark; `style: "neutral"` draws a surface-coloured circle with a thin border instead of the accent fill. |
 | `initialState` | `Partial<NagishonState>` | none | Applied only when the visitor has no stored state. |
 | `storageKey` | `string` | `"nagishon:v1"` | `localStorage` key. If you change it, pass the same key to the pre-paint script (`prepaintScript(key)` from `nagishon/prepaint`). |
 | `onChange` | `(state: NagishonState) => void` | none | Called after every change. |

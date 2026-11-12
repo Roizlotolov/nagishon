@@ -35,6 +35,10 @@ export interface NagishonOptions {
     shape?: "pill" | "circle";
     /** `"md"` = 48px (default), `"lg"` = 56px. */
     size?: "md" | "lg";
+    /** `"solid"` (filled glyph, default) or `"outline"` (stroke glyph, the classic Israeli «נגישות» mark). */
+    icon?: "solid" | "outline";
+    /** `"accent"` (filled with the accent colour, default) or `"neutral"` (surface colour with a thin border). */
+    style?: "accent" | "neutral";
   };
   initialState?: Partial<NagishonState>;
   storageKey?: string;

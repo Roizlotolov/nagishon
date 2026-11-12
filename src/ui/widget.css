@@ -35,6 +35,8 @@ svg.half path{fill:currentColor}
   font-weight:600;box-shadow:0 6px 20px -6px rgb(0 0 0/.35),inset 0 0 0 1px rgb(255 255 255/.2)}
 :host([data-size="lg"]) .launcher{font-size:1.0625em;padding-inline:24px}
 .launcher.icon{padding:0;inline-size:var(--ls)}
+:host([data-lstyle="neutral"]) .launcher{background:var(--surf,var(--bg));color:var(--fg);box-shadow:0 6px 20px -6px rgb(0 0 0/.35),inset 0 0 0 1px var(--ctl)}
+.launcher svg circle{fill:none}
 .launcher svg{inline-size:24px;block-size:24px}
 .launcher:focus-visible{outline:3px solid var(--fg);outline-offset:2px;box-shadow:0 0 0 2px var(--bg),0 6px 20px -6px rgb(0 0 0/.35)}
 :host([data-pos="end"]) .launcher,:host([data-pos="end"]) .panel{inset-inline-start:auto;inset-inline-end:var(--oi,20px)}

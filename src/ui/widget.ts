@@ -60,6 +60,9 @@ const svg = (d: string, cls = "") =>
   '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"' + (cls ? ' class="' + cls + '"' : "") + '><path d="' + d + '"/></svg>';
 /** Filled person glyph (launcher and header badge). */
 const PERSON = svg("M12 2a2.6 2.6 0 1 1 0 5.2A2.6 2.6 0 0 1 12 2zM5 8.5h14v2.2h-5.2v3.6l2.4 6.2-2.1.8L12 15.9l-2.1 5.4-2.1-.8 2.4-6.2v-3.6H5z", "fill");
+/** Outline person glyph (stroke, round caps): the classic «נגישות» mark many Israeli sites use. */
+const PERSON_OUTLINE =
+  '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="4" r="2"/><path d="M4 8.5 12 10l8-1.5M12 10v5m0 0-4 6m4-6 4 6"/></svg>';
 /** 24-box line icons, one path each. */
 const ICONS: Record<string, string> = {
   grayscale: "M12 3v18M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z",
@@ -114,6 +117,7 @@ export function createWidget(cfg: WidgetConfig): Widget {
   const off = options.offset || {};
   if (th.preset === "light" || th.preset === "dark") host.setAttribute("data-theme", th.preset);
   host.setAttribute("data-size", options.launcher?.size === "lg" ? "lg" : "md");
+  host.setAttribute("data-lstyle", options.launcher?.style === "neutral" ? "neutral" : "accent");
   hs.setProperty("--ob", (off.block ?? 20) + "px");
   hs.setProperty("--oi", (off.inline ?? 20) + "px");
   if (th.accent) {
@@ -140,7 +144,7 @@ export function createWidget(cfg: WidgetConfig): Widget {
   const showText = lo.showText !== false && lo.shape !== "circle";
   const label = lo.label || tr("launcher");
   const iconEl = h("span", { "aria-hidden": "true", class: "ico" });
-  iconEl.innerHTML = PERSON;
+  iconEl.innerHTML = lo.icon === "outline" ? PERSON_OUTLINE : PERSON;
   const launcher = lo.hidden
     ? null
     : h(

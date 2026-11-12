@@ -39,6 +39,8 @@ export function optionsFromDataset(ds: DOMStringMap | Record<string, string | un
   if (ds.launcherShape === "pill" || ds.launcherShape === "circle") o.launcher = { ...o.launcher, shape: ds.launcherShape };
   if (ds.launcherSize === "md" || ds.launcherSize === "lg") o.launcher = { ...o.launcher, size: ds.launcherSize };
   if (ds.launcherLabel) o.launcher = { ...o.launcher, label: ds.launcherLabel };
+  if (ds.launcherIcon === "solid" || ds.launcherIcon === "outline") o.launcher = { ...o.launcher, icon: ds.launcherIcon };
+  if (ds.launcherStyle === "accent" || ds.launcherStyle === "neutral") o.launcher = { ...o.launcher, style: ds.launcherStyle };
   if (ds.theme === "auto" || ds.theme === "light" || ds.theme === "dark") o.theme = { ...o.theme, preset: ds.theme };
   if (ds.background) o.theme = { ...o.theme, background: ds.background };
   if (ds.foreground) o.theme = { ...o.theme, foreground: ds.foreground };

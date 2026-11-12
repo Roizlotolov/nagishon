@@ -57,4 +57,11 @@ describe("optionsFromDataset", () => {
     const o = optionsFromDataset({ position: "left", textScaling: "x", zIndex: "abc", hotkey: "false" });
     expect(o).toEqual({ hotkey: false });
   });
+
+  it("parses launcher icon and style", () => {
+    expect(optionsFromDataset({ launcherIcon: "outline", launcherStyle: "neutral" })).toEqual({
+      launcher: { icon: "outline", style: "neutral" },
+    });
+    expect(optionsFromDataset({ launcherIcon: "weird", launcherStyle: "loud" })).toEqual({});
+  });
 });

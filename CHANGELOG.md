@@ -2,6 +2,8 @@
 
 ## 1.0.0 — 2026-11-12
 
+- `launcher.icon` (`solid` | `outline`) and `launcher.style` (`accent` | `neutral`), also as `data-launcher-icon` / `data-launcher-style`, for sites that want the classic round grey «נגישות» button.
+
 - Panel typography is a fixed 16px base so page-level root scaling (`textScaling: "root"`) does not resize the toolbar itself; browser zoom still applies.
 
 First release.
