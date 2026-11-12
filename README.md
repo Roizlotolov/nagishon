@@ -231,4 +231,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). In short: Node 24, `npm run check && npm
 
 ## License
 
-[MIT](LICENSE) © 2026 zloto-labs
+[MIT](LICENSE) © 2026 Roi Zlotolov

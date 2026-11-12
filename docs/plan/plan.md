@@ -29,7 +29,7 @@ source ~/.nvm/nvm.sh && nvm use && npm run check && npm run test:e2e
 - [ ] Reset removes storage key and all `data-nagishon-*` attributes.
 - [ ] Works when host CSS is hostile (demo).
 - [ ] README disclaimer present; no "compliant"/"100%" claims; no invented numbers, logos or testimonials.
-- [ ] License MIT, copyright "zloto-labs".
+- [ ] License MIT, copyright "Roi Zlotolov".
 
 ## Out of scope for v1 (tracked for later)
 

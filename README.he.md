@@ -231,6 +231,6 @@ init({
 
 ## רישיון
 
-[MIT](LICENSE) © 2026 zloto-labs
+[MIT](LICENSE) © 2026 Roi Zlotolov
 
 </div>
