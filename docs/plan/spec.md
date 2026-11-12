@@ -18,7 +18,7 @@ This document is the contract for implementation. Anything not specified here is
 
 ## 1. Deliverables and package layout
 
-npm package name: `nagishon`. Repo: `zloto-labs/nagishon` (GitHub).
+npm package name: `nagishon`. Repo: `Roizlotolov/nagishon` (GitHub).
 
 ```
 nagishon/

@@ -10,7 +10,7 @@ Owner/planner/reviewer: Fable (this session). Implementation: Sonnet agents work
 | B1 | UI: `ui/widget.ts` + `widget.css`, `index.ts` API, `iife.ts` auto-init, `react/index.tsx`, contrast script + `docs/plan/contrast.md` | Sonnet | builds; manual check in demo; axe clean |
 | B2 | Demo pages, README (en/he), statement template, compliance checklist, CONTRIBUTING, CHANGELOG, LICENSE, e2e specs written against the spec | Sonnet (parallel with B1) | files exist; e2e specs compile |
 | C | Integration: run full `npm run check && npm run test:e2e`; planner review (code read, RTL/LTR screenshots, keyboard pass, size); fix loop | Fable reviews, Sonnet fixes | all gates green |
-| D | GitHub: create `zloto-labs/nagishon` (public), push `main`, CI green | Fable | CI run passes |
+| D | GitHub: create `Roizlotolov/nagishon` (public), push `main`, CI green | Fable | CI run passes |
 
 ## Gates (never push unless all exit 0, chained with `&&`)
 

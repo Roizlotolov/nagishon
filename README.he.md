@@ -2,7 +2,7 @@
 
 # nagishon (נגישון)
 
-[![CI](https://github.com/zloto-labs/nagishon/actions/workflows/ci.yml/badge.svg)](https://github.com/zloto-labs/nagishon/actions/workflows/ci.yml)
+[![CI](https://github.com/Roizlotolov/nagishon/actions/workflows/ci.yml/badge.svg)](https://github.com/Roizlotolov/nagishon/actions/workflows/ci.yml)
 [![גרסת npm](https://img.shields.io/npm/v/nagishon.svg)](https://www.npmjs.com/package/nagishon)
 [![גודל](https://img.shields.io/bundlephobia/minzip/nagishon)](https://bundlephobia.com/package/nagishon)
 [![רישיון: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)

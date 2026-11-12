@@ -17,12 +17,12 @@
   "homepage": "https://nagishon-site.vercel.app",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zloto-labs/nagishon.git"
+    "url": "git+https://github.com/Roizlotolov/nagishon.git"
   },
   "bugs": {
-    "url": "https://github.com/zloto-labs/nagishon/issues"
+    "url": "https://github.com/Roizlotolov/nagishon/issues"
   },
-  "author": "zloto-labs",
+  "author": "Roi Zlotolov",
   "license": "MIT",
   "type": "module",
   "sideEffects": [

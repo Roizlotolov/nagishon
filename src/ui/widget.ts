@@ -277,7 +277,7 @@ export function createWidget(cfg: WidgetConfig): Widget {
     const parts = tr("hotkeyHint", { hotkey: "\u0000" }).split("\u0000");
     meta.append(h("p", { class: "hint" }, parts[0], h("kbd", { dir: "ltr" }, formatHotkey(options.hotkey || "Alt+Shift+A")), parts[1] || ""));
   }
-  meta.append(h("a", { class: "credit", href: "https://github.com/zloto-labs/nagishon", rel: "noopener", target: "_blank" }, tr("poweredBy")));
+  meta.append(h("a", { class: "credit", href: "https://github.com/Roizlotolov/nagishon", rel: "noopener", target: "_blank" }, tr("poweredBy")));
   foot.append(meta);
   panel.append(foot);
 
