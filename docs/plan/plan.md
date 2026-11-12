@@ -38,3 +38,9 @@ source ~/.nvm/nvm.sh && nvm use && npm run check && npm run test:e2e
 - Automatic alt-text generation (would require network/AI; conflicts with privacy rule and reg 35ב expectations).
 - Hosted statement generator UI (could be a static page in a later release).
 - WordPress plugin wrapper (later: thin PHP wrapper that enqueues the IIFE).
+
+## Phase E — promotional landing page (separate project, after D)
+
+Owner request (12.11.2026): after the plugin ships, build a landing page that promotes the free plugin, following the Zloto KB runbook `runbooks/new-project-website-prompt.md` (standalone repo, never inside this one; brand/domain research shortlist; logo, favicon, OG; 3 design directions for the owner to pick; DESIGN.md; humanizer copy; QA desktop + mobile; GA4 + Search Console; stop before buying domains or public launch).
+
+Inputs the landing page takes from this repo: name `nagish`, the 30-second install snippet, the feature list, the honest positioning (not a compliance fix), the statement template and checklist as lead magnets, the live demo page. Goal of the site: adoption of the free plugin (GitHub stars, npm installs) plus optional lead capture for accessibility services. No prices on the plugin page; the plugin stays free.
