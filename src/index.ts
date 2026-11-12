@@ -1,11 +1,11 @@
-import type { Contrast, NagishState, TextScale } from "./core/state";
+import type { Contrast, NagishonState, TextScale } from "./core/state";
 import { applyEffects, teardownEffects } from "./core/effects";
 import { createStateStore, DEFAULT_STORAGE_KEY } from "./core/state";
 import { createHotkeyMatcher } from "./hotkey";
 import { localeDir, resolveLocale, type Locale } from "./i18n";
 import { createWidget, type Widget } from "./ui/widget";
 
-export interface NagishOptions {
+export interface NagishonOptions {
   locale?: Locale | (string & {});
   dir?: "rtl" | "ltr";
   position?: "start" | "end";
@@ -15,33 +15,33 @@ export interface NagishOptions {
   hotkey?: string | false;
   textScaling?: "elements" | "root";
   skipLink?: { target: string; label?: string } | false;
-  features?: Partial<Record<keyof NagishState, boolean>>;
+  features?: Partial<Record<keyof NagishonState, boolean>>;
   theme?: Partial<{ accent: string; background: string; foreground: string; radius: string; zIndex: number }>;
   launcher?: { label?: string; showText?: boolean; hidden?: boolean };
-  initialState?: Partial<NagishState>;
+  initialState?: Partial<NagishonState>;
   storageKey?: string;
-  onChange?: (state: NagishState) => void;
+  onChange?: (state: NagishonState) => void;
 }
 
-export interface NagishInstance {
+export interface NagishonInstance {
   open(): void;
   close(): void;
   toggle(): void;
-  getState(): NagishState;
-  set<K extends keyof NagishState>(key: K, value: NagishState[K]): void;
-  setState(patch: Partial<NagishState>): void;
+  getState(): NagishonState;
+  set<K extends keyof NagishonState>(key: K, value: NagishonState[K]): void;
+  setState(patch: Partial<NagishonState>): void;
   reset(): void;
-  on(event: "change" | "open" | "close", cb: (state: NagishState) => void): () => void;
+  on(event: "change" | "open" | "close", cb: (state: NagishonState) => void): () => void;
   destroy(): void;
-  readonly options: Readonly<Required<Pick<NagishOptions, "locale" | "dir" | "position">>> & NagishOptions;
+  readonly options: Readonly<Required<Pick<NagishonOptions, "locale" | "dir" | "position">>> & NagishonOptions;
 }
 
 type Ev = "change" | "open" | "close";
-let current: NagishInstance | null = null;
+let current: NagishonInstance | null = null;
 
-export function init(options: NagishOptions = {}): NagishInstance {
+export function init(options: NagishonOptions = {}): NagishonInstance {
   if (current) {
-    if (typeof console !== "undefined") console.warn("nagish: already initialized; returning the existing instance. Call destroy() first to re-init.");
+    if (typeof console !== "undefined") console.warn("nagishon: already initialized; returning the existing instance. Call destroy() first to re-init.");
     return current;
   }
   const locale = resolveLocale(options.locale);
@@ -52,10 +52,10 @@ export function init(options: NagishOptions = {}): NagishInstance {
     position: options.position || "start",
   };
   const store = createStateStore(options.storageKey || DEFAULT_STORAGE_KEY, options.initialState);
-  const listeners: Record<Ev, Set<(s: NagishState) => void>> = { change: new Set(), open: new Set(), close: new Set() };
+  const listeners: Record<Ev, Set<(s: NagishonState) => void>> = { change: new Set(), open: new Set(), close: new Set() };
   const fire = (ev: Ev) => listeners[ev].forEach((cb) => cb(store.get()));
   let widget: Widget | null = null;
-  let prev: NagishState | null = null;
+  let prev: NagishonState | null = null;
   let destroyed = false;
   let pendingOpen = false;
 
@@ -68,7 +68,7 @@ export function init(options: NagishOptions = {}): NagishInstance {
       apply();
       widget.update(s);
     }
-    window.dispatchEvent(new CustomEvent("nagish:change", { detail: s }));
+    window.dispatchEvent(new CustomEvent("nagishon:change", { detail: s }));
     options.onChange?.(s);
     fire("change");
   });
@@ -101,13 +101,13 @@ export function init(options: NagishOptions = {}): NagishInstance {
       onClose: () => fire("close"),
     });
     apply();
-    window.dispatchEvent(new CustomEvent("nagish:ready", { detail: store.get() }));
+    window.dispatchEvent(new CustomEvent("nagishon:ready", { detail: store.get() }));
     if (pendingOpen) widget.open();
   };
   if (document.body) mount();
   else document.addEventListener("DOMContentLoaded", mount);
 
-  const instance: NagishInstance = {
+  const instance: NagishonInstance = {
     open() {
       if (widget) widget.open();
       else pendingOpen = true;
@@ -155,9 +155,9 @@ export function init(options: NagishOptions = {}): NagishInstance {
   return instance;
 }
 
-export function get(): NagishInstance | null {
+export function get(): NagishonInstance | null {
   return current;
 }
 
 export { DEFAULT_STATE, normalizeState } from "./core/state";
-export type { NagishState, TextScale, Contrast };
+export type { NagishonState, TextScale, Contrast };

@@ -19,7 +19,7 @@ export function isFinePointer(): boolean {
 export function enableReadingGuide(): void {
   if (guide || !isFinePointer()) return;
   guide = document.createElement("div");
-  guide.setAttribute("data-nagish-root", "guide");
+  guide.setAttribute("data-nagishon-root", "guide");
   guide.setAttribute("aria-hidden", "true");
   guide.style.transform = "translateY(-100px)";
   document.body.appendChild(guide);

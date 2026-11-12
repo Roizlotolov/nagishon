@@ -20,13 +20,13 @@ export function enableSkipLink(opts: SkipLinkOptions, locale: Locale | string = 
   if (!targetEl) return;
   let href = opts.target.startsWith("#") && !/[\s.>[:]/.test(opts.target) ? opts.target : "";
   if (!href) {
-    if (!targetEl.id) targetEl.id = "nagish-skip-target";
+    if (!targetEl.id) targetEl.id = "nagishon-skip-target";
     href = "#" + targetEl.id;
   }
   const a = document.createElement("a");
   a.href = href;
-  a.className = "nagish-skip";
-  a.setAttribute("data-nagish-root", "skip");
+  a.className = "nagishon-skip";
+  a.setAttribute("data-nagishon-root", "skip");
   a.textContent = opts.label ?? getStrings(locale).skipToContent;
   onClick = (e) => {
     const el = document.querySelector(href);

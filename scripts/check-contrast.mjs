@@ -1,4 +1,4 @@
-// WCAG 2.x contrast check for the nagish widget palettes. Exits 1 on any failure.
+// WCAG 2.x contrast check for the nagishon widget palettes. Exits 1 on any failure.
 // Usage: node scripts/check-contrast.mjs [--markdown]
 const themes = {
   "Light (default)": { bg: "#ffffff", fg: "#111111", ac: "#0b57d0", on: "#ffffff", mut: "#4d4d4d", line: "#767676" },

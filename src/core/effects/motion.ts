@@ -1,4 +1,4 @@
-const PAUSED = "data-nagish-paused";
+const PAUSED = "data-nagishon-paused";
 const MEDIA = "video, audio";
 
 let observer: MutationObserver | null = null;
@@ -17,7 +17,7 @@ function pauseMedia(m: HTMLMediaElement): void {
 
 function handleNode(node: Node): void {
   if (!(node instanceof Element)) return;
-  if (node.closest("[data-nagish-root]")) return;
+  if (node.closest("[data-nagishon-root]")) return;
   if (node.matches(MEDIA)) pauseMedia(node as HTMLMediaElement);
   node.querySelectorAll(MEDIA).forEach((m) => pauseMedia(m as HTMLMediaElement));
   stopMarquees(node);
@@ -32,7 +32,7 @@ function stopMarquees(root: Element | Document): void {
 
 export function enableMotionStop(): void {
   document.querySelectorAll(MEDIA).forEach((m) => {
-    if (m.closest("[data-nagish-root]")) return;
+    if (m.closest("[data-nagishon-root]")) return;
     pauseMedia(m as HTMLMediaElement);
   });
   stopMarquees(document);
@@ -43,7 +43,7 @@ export function enableMotionStop(): void {
   observer.observe(document.body, { childList: true, subtree: true });
 }
 
-/** Best-effort resume of media that nagish paused. */
+/** Best-effort resume of media that nagishon paused. */
 export function disableMotionStop(): void {
   observer?.disconnect();
   observer = null;

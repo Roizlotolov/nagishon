@@ -1,5 +1,5 @@
 import { applyAttrs, clearAttrs } from "../attrs";
-import type { NagishState } from "../state";
+import type { NagishonState } from "../state";
 import { markIconFonts, unmarkIconFonts } from "./font";
 import { injectStyles, removeStyles } from "./inject-styles";
 import { disableMotionStop, enableMotionStop } from "./motion";
@@ -14,10 +14,10 @@ export interface EffectsOptions {
 }
 
 /**
- * Applies the state to the page: data-nagish-* attributes (CSS effects) plus the JS-driven effects.
+ * Applies the state to the page: data-nagishon-* attributes (CSS effects) plus the JS-driven effects.
  * `prev` is the previously applied state (null on first call); only changed features are touched.
  */
-export function applyEffects(state: NagishState, prev: NagishState | null, options: EffectsOptions = {}): void {
+export function applyEffects(state: NagishonState, prev: NagishonState | null, options: EffectsOptions = {}): void {
   injectStyles();
   applyAttrs(state);
 

@@ -1,16 +1,16 @@
-import { TEXT_SCALES, type NagishState } from "../core/state";
+import { TEXT_SCALES, type NagishonState } from "../core/state";
 import { formatHotkey } from "../hotkey";
 import { t, type StringKey } from "../i18n";
-import type { NagishOptions } from "../index";
+import type { NagishonOptions } from "../index";
 import css from "./widget.css";
 
 export interface WidgetConfig {
-  options: NagishOptions;
+  options: NagishonOptions;
   locale: string;
   dir: "rtl" | "ltr";
   position: "start" | "end";
-  state: NagishState;
-  onSet(patch: Partial<NagishState>): void;
+  state: NagishonState;
+  onSet(patch: Partial<NagishonState>): void;
   onReset(): void;
   onOpen(): void;
   onClose(): void;
@@ -21,7 +21,7 @@ export interface Widget {
   open(): void;
   close(): void;
   isOpen(): boolean;
-  update(state: NagishState): void;
+  update(state: NagishonState): void;
   destroy(): void;
 }
 
@@ -40,7 +40,7 @@ function h<K extends keyof HTMLElementTagNameMap>(
   return e;
 }
 
-const TOGGLES: [keyof NagishState, StringKey][] = [
+const TOGGLES: [keyof NagishonState, StringKey][] = [
   ["grayscale", "grayscale"],
   ["underlineLinks", "underlineLinks"],
   ["highlightHeadings", "highlightHeadings"],
@@ -75,7 +75,7 @@ export function createWidget(cfg: WidgetConfig): Widget {
   const { options, locale } = cfg;
   const tr = (k: StringKey, v?: Record<string, string | number>) => t(locale, k, v);
   const features = options.features || {};
-  const on = (k: keyof NagishState) => features[k] !== false;
+  const on = (k: keyof NagishonState) => features[k] !== false;
   const coarse = !!(window.matchMedia && window.matchMedia("(pointer: coarse)").matches);
   let state = cfg.state;
   let isOpen = false;
@@ -85,7 +85,7 @@ export function createWidget(cfg: WidgetConfig): Widget {
   const inerted: [HTMLElement, "inert" | "aria-hidden", string | null][] = [];
   const sync: (() => void)[] = [];
 
-  const host = h("nagish-widget" as "div", { "data-nagish-root": true, lang: locale, dir: cfg.dir, "data-pos": cfg.position });
+  const host = h("nagishon-widget" as "div", { "data-nagishon-root": true, lang: locale, dir: cfg.dir, "data-pos": cfg.position });
   const root = host.attachShadow({ mode: "open" });
   const hs = host.style;
   const th = options.theme || {};
@@ -93,14 +93,14 @@ export function createWidget(cfg: WidgetConfig): Widget {
   hs.setProperty("--ob", (off.block ?? 20) + "px");
   hs.setProperty("--oi", (off.inline ?? 20) + "px");
   if (th.accent) {
-    hs.setProperty("--nagish-u-accent", th.accent);
+    hs.setProperty("--nagishon-u-accent", th.accent);
     const oc = onColor(th.accent);
-    if (oc) hs.setProperty("--nagish-u-on", oc);
+    if (oc) hs.setProperty("--nagishon-u-on", oc);
   }
-  if (th.background) hs.setProperty("--nagish-u-bg", th.background);
-  if (th.foreground) hs.setProperty("--nagish-u-fg", th.foreground);
-  if (th.radius) hs.setProperty("--nagish-u-radius", th.radius);
-  if (th.zIndex !== undefined) hs.setProperty("--nagish-z", String(th.zIndex));
+  if (th.background) hs.setProperty("--nagishon-u-bg", th.background);
+  if (th.foreground) hs.setProperty("--nagishon-u-fg", th.foreground);
+  if (th.radius) hs.setProperty("--nagishon-u-radius", th.radius);
+  if (th.zIndex !== undefined) hs.setProperty("--nagishon-z", String(th.zIndex));
 
   const live = h("div", { "aria-live": "polite", class: "sr" });
   const announce = (msg: string) => {
@@ -124,7 +124,7 @@ export function createWidget(cfg: WidgetConfig): Widget {
           "data-action": "open",
           "aria-haspopup": "dialog",
           "aria-expanded": "false",
-          "aria-controls": "nagish-dialog",
+          "aria-controls": "nagishon-dialog",
           "aria-label": showText ? undefined : label,
         },
         iconEl,
@@ -132,11 +132,11 @@ export function createWidget(cfg: WidgetConfig): Widget {
       );
 
   // Dialog
-  const title = h("h2", { id: "nagish-title", tabindex: "-1" }, tr("title"));
+  const title = h("h2", { id: "nagishon-title", tabindex: "-1" }, tr("title"));
   const closeBtn = h("button", { type: "button", "data-action": "close", "aria-label": tr("close") }, "✕");
   const panel = h(
     "div",
-    { role: "dialog", "aria-modal": "true", "aria-labelledby": "nagish-title", id: "nagish-dialog", class: "panel", hidden: true },
+    { role: "dialog", "aria-modal": "true", "aria-labelledby": "nagishon-title", id: "nagishon-dialog", class: "panel", hidden: true },
     h("div", { class: "head" }, title, closeBtn),
   );
   const backdrop = h("div", { class: "backdrop", hidden: true });
@@ -147,7 +147,7 @@ export function createWidget(cfg: WidgetConfig): Widget {
     value: string,
     text: string,
     isOn: () => boolean,
-    patch: Partial<NagishState>,
+    patch: Partial<NagishonState>,
     msg: () => string,
   ) => {
     const b = h("button", { type: "button", "data-key": key, "data-value": value, "aria-pressed": "false", dir: "ltr" }, text);
@@ -203,7 +203,7 @@ export function createWidget(cfg: WidgetConfig): Widget {
           "div",
           { class: "row", role: "group", "aria-label": tr("contrast") },
           ...CONTRASTS.map(([v, k]) =>
-            pressable("contrast", v, tr(k), () => state.contrast === v, { contrast: v as NagishState["contrast"] }, () =>
+            pressable("contrast", v, tr(k), () => state.contrast === v, { contrast: v as NagishonState["contrast"] }, () =>
               tr("contrast") + ": " + tr(k),
             ),
           ),
@@ -244,7 +244,7 @@ export function createWidget(cfg: WidgetConfig): Widget {
     const parts = tr("hotkeyHint", { hotkey: "\u0000" }).split("\u0000");
     foot.append(h("p", { class: "hint" }, parts[0], h("bdi", { dir: "ltr" }, formatHotkey(options.hotkey || "Alt+Shift+A")), parts[1] || ""));
   }
-  foot.append(h("a", { class: "credit", href: "https://github.com/zloto-labs/nagish", rel: "noopener", target: "_blank" }, tr("poweredBy")));
+  foot.append(h("a", { class: "credit", href: "https://github.com/zloto-labs/nagishon", rel: "noopener", target: "_blank" }, tr("poweredBy")));
   panel.append(foot);
 
   root.append(h("style", {}, css), backdrop, panel, live);
@@ -342,7 +342,7 @@ export function createWidget(cfg: WidgetConfig): Widget {
     target?.focus();
     cfg.onClose();
   }
-  function update(s: NagishState) {
+  function update(s: NagishonState) {
     state = s;
     host.setAttribute("data-contrast", s.contrast);
     sync.forEach((f) => f());

@@ -1,11 +1,11 @@
 import effectsCss from "../../styles/effects.css";
 import { cursorCss } from "./cursor";
 
-export const STYLE_ID = "nagish-effects";
+export const STYLE_ID = "nagishon-effects";
 
 let createdByUs = false;
 
-/** Injects <style id="nagish-effects"> once; reuses an existing element with that id. */
+/** Injects <style id="nagishon-effects"> once; reuses an existing element with that id. */
 export function injectStyles(): HTMLStyleElement {
   let el = document.getElementById(STYLE_ID) as HTMLStyleElement | null;
   if (!el) {

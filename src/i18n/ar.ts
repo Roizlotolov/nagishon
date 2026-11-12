@@ -30,5 +30,5 @@ export const ar: Strings = {
   announceTextSize: "حجم النص: {value}",
   announceOn: "{feature} مفعّل",
   announceOff: "{feature} متوقف",
-  poweredBy: "بُني باستخدام nagish",
+  poweredBy: "بُني باستخدام nagishon",
 };

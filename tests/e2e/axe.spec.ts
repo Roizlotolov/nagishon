@@ -20,7 +20,7 @@ test.describe("axe (wcag2a, wcag2aa, wcag21a, wcag21aa)", () => {
     await page.goto("/");
     await openDialog(page);
     await pressedButton(page, /כהה/).first().click();
-    await expect(page.locator("html")).toHaveAttribute("data-nagish-contrast", "dark");
+    await expect(page.locator("html")).toHaveAttribute("data-nagishon-contrast", "dark");
     const { violations } = await runAxe(page);
     expect(violations, describeViolations(violations)).toEqual([]);
   });
@@ -28,7 +28,7 @@ test.describe("axe (wcag2a, wcag2aa, wcag21a, wcag21aa)", () => {
   test("locale en (LTR), closed and open: zero violations", async ({ page }) => {
     await page.goto("/en.html");
     await waitForWidget(page);
-    await expect(page.locator("nagish-widget[data-nagish-root]")).toHaveAttribute("dir", "ltr");
+    await expect(page.locator("nagishon-widget[data-nagishon-root]")).toHaveAttribute("dir", "ltr");
     let result = await runAxe(page);
     expect(result.violations, describeViolations(result.violations)).toEqual([]);
     await openDialog(page);

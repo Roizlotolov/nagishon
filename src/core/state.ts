@@ -1,7 +1,7 @@
 export type TextScale = 1 | 1.25 | 1.5 | 1.75 | 2;
 export type Contrast = "none" | "dark" | "light";
 
-export interface NagishState {
+export interface NagishonState {
   textScale: TextScale;
   contrast: Contrast;
   grayscale: boolean;
@@ -14,7 +14,7 @@ export interface NagishState {
   readingGuide: boolean;
 }
 
-export const DEFAULT_STATE: Readonly<NagishState> = Object.freeze({
+export const DEFAULT_STATE: Readonly<NagishonState> = Object.freeze({
   textScale: 1,
   contrast: "none",
   grayscale: false,
@@ -28,14 +28,14 @@ export const DEFAULT_STATE: Readonly<NagishState> = Object.freeze({
 });
 
 export const TEXT_SCALES: readonly TextScale[] = [1, 1.25, 1.5, 1.75, 2];
-export const DEFAULT_STORAGE_KEY = "nagish:v1";
+export const DEFAULT_STORAGE_KEY = "nagishon:v1";
 
 /**
  * Accepts any input and returns a valid state.
  * SELF-CONTAINED: stringified into the pre-paint snippet. No imports, no closures over
  * module state, no helpers, no default-parameter/spread syntax that a compiler could lower.
  */
-export function normalizeState(input: unknown): NagishState {
+export function normalizeState(input: unknown): NagishonState {
   const o: Record<string, unknown> =
     input !== null && typeof input === "object" && !Array.isArray(input)
       ? (input as Record<string, unknown>)
@@ -57,18 +57,18 @@ export function normalizeState(input: unknown): NagishState {
   };
 }
 
-const KEYS = Object.keys(DEFAULT_STATE) as (keyof NagishState)[];
+const KEYS = Object.keys(DEFAULT_STATE) as (keyof NagishonState)[];
 
-export function isDefaultState(state: NagishState): boolean {
+export function isDefaultState(state: NagishonState): boolean {
   return KEYS.every((k) => state[k] === DEFAULT_STATE[k]);
 }
 
-export function statesEqual(a: NagishState, b: NagishState): boolean {
+export function statesEqual(a: NagishonState, b: NagishonState): boolean {
   return KEYS.every((k) => a[k] === b[k]);
 }
 
 /** Reads and normalizes the stored state; returns null when nothing is stored (or storage is unavailable). */
-export function readStoredState(key: string = DEFAULT_STORAGE_KEY): NagishState | null {
+export function readStoredState(key: string = DEFAULT_STORAGE_KEY): NagishonState | null {
   try {
     const raw = localStorage.getItem(key);
     if (raw === null) return null;
@@ -79,7 +79,7 @@ export function readStoredState(key: string = DEFAULT_STORAGE_KEY): NagishState 
 }
 
 /** Persists the state; removes the key entirely when the state equals DEFAULT_STATE. */
-export function writeStoredState(state: NagishState, key: string = DEFAULT_STORAGE_KEY): void {
+export function writeStoredState(state: NagishonState, key: string = DEFAULT_STORAGE_KEY): void {
   try {
     if (isDefaultState(state)) localStorage.removeItem(key);
     else localStorage.setItem(key, JSON.stringify(state));
@@ -88,12 +88,12 @@ export function writeStoredState(state: NagishState, key: string = DEFAULT_STORA
   }
 }
 
-export type StateListener = (state: NagishState) => void;
+export type StateListener = (state: NagishonState) => void;
 
 export interface StateStore {
-  get(): NagishState;
-  set(patch: Partial<NagishState>): NagishState;
-  reset(): NagishState;
+  get(): NagishonState;
+  set(patch: Partial<NagishonState>): NagishonState;
+  reset(): NagishonState;
   subscribe(listener: StateListener): () => void;
   destroy(): void;
 }
@@ -104,7 +104,7 @@ export interface StateStore {
  */
 export function createStateStore(
   key: string = DEFAULT_STORAGE_KEY,
-  initial?: Partial<NagishState>,
+  initial?: Partial<NagishonState>,
 ): StateStore {
   const listeners = new Set<StateListener>();
   let state = readStoredState(key) ?? normalizeState({ ...DEFAULT_STATE, ...initial });

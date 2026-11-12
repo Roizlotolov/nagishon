@@ -24,7 +24,7 @@ describe("public API", () => {
   it("set/setState/reset, events and onChange", () => {
     const onChange = vi.fn();
     const evt = vi.fn();
-    window.addEventListener("nagish:change", evt);
+    window.addEventListener("nagishon:change", evt);
     const cb = vi.fn();
     const n = init({ onChange });
     const off = n.on("change", cb);
@@ -38,15 +38,15 @@ describe("public API", () => {
     n.reset();
     expect(cb).toHaveBeenCalledTimes(2);
     expect(n.getState()).toEqual(DEFAULT_STATE);
-    window.removeEventListener("nagish:change", evt);
+    window.removeEventListener("nagishon:change", evt);
   });
 
-  it("dispatches nagish:ready and open/close events", () => {
+  it("dispatches nagishon:ready and open/close events", () => {
     const ready = vi.fn();
-    window.addEventListener("nagish:ready", ready);
+    window.addEventListener("nagishon:ready", ready);
     const n = init();
     expect(ready).toHaveBeenCalledTimes(1);
-    window.removeEventListener("nagish:ready", ready);
+    window.removeEventListener("nagishon:ready", ready);
     const o = vi.fn();
     const c = vi.fn();
     n.on("open", o);
@@ -72,7 +72,7 @@ describe("public API", () => {
     const a = init();
     a.set("bigCursor", true);
     a.destroy();
-    expect(localStorage.getItem("nagish:v1")).not.toBeNull();
+    expect(localStorage.getItem("nagishon:v1")).not.toBeNull();
     expect(init()).not.toBe(a);
   });
 
@@ -85,10 +85,10 @@ describe("public API", () => {
     const body = document.body;
     body.remove();
     const n = init();
-    expect(document.querySelector("nagish-widget")).toBeNull();
+    expect(document.querySelector("nagishon-widget")).toBeNull();
     document.documentElement.appendChild(body);
     document.dispatchEvent(new Event("DOMContentLoaded"));
-    expect(document.querySelector("nagish-widget")).not.toBeNull();
+    expect(document.querySelector("nagishon-widget")).not.toBeNull();
     n.destroy();
   });
 });

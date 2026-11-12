@@ -18,7 +18,7 @@ export default defineConfig([
     dts: true,
   },
   {
-    // ESM module exporting the NAGISH_PREPAINT string (dist/prepaint.module.js + prepaint.d.ts)
+    // ESM module exporting the NAGISHON_PREPAINT string (dist/prepaint.module.js + prepaint.d.ts)
     ...common,
     entry: { prepaint: "src/prepaint.ts" },
     format: ["esm"],
@@ -37,10 +37,10 @@ export default defineConfig([
   },
   {
     ...common,
-    entry: { "nagish.iife": "src/iife.ts" },
+    entry: { "nagishon.iife": "src/iife.ts" },
     format: ["iife"],
-    globalName: "Nagish",
-    define: { __NAGISH_VERSION__: JSON.stringify(version) },
+    globalName: "Nagishon",
+    define: { __NAGISHON_VERSION__: JSON.stringify(version) },
     minify: true,
     outExtension: () => ({ js: ".js" }),
   },

@@ -1,4 +1,4 @@
-# nagish — delivery plan and control
+# nagishon — delivery plan and control
 
 Owner/planner/reviewer: Fable (this session). Implementation: Sonnet agents working from `docs/plan/spec.md`. Every phase ends with a review by the planner and the gate commands below before the next phase starts.
 
@@ -10,7 +10,7 @@ Owner/planner/reviewer: Fable (this session). Implementation: Sonnet agents work
 | B1 | UI: `ui/widget.ts` + `widget.css`, `index.ts` API, `iife.ts` auto-init, `react/index.tsx`, contrast script + `docs/plan/contrast.md` | Sonnet | builds; manual check in demo; axe clean |
 | B2 | Demo pages, README (en/he), statement template, compliance checklist, CONTRIBUTING, CHANGELOG, LICENSE, e2e specs written against the spec | Sonnet (parallel with B1) | files exist; e2e specs compile |
 | C | Integration: run full `npm run check && npm run test:e2e`; planner review (code read, RTL/LTR screenshots, keyboard pass, size); fix loop | Fable reviews, Sonnet fixes | all gates green |
-| D | GitHub: create `zloto-labs/nagish` (public), push `main`, CI green | Fable | CI run passes |
+| D | GitHub: create `zloto-labs/nagishon` (public), push `main`, CI green | Fable | CI run passes |
 
 ## Gates (never push unless all exit 0, chained with `&&`)
 
@@ -26,7 +26,7 @@ source ~/.nvm/nvm.sh && nvm use && npm run check && npm run test:e2e
 - [ ] Size: IIFE ≤ 18 KB gzip; prepaint ≤ 1.2 KB.
 - [ ] axe zero violations in the 4 configurations.
 - [ ] Keyboard-only run through every control; focus never lost; Escape and focus return work.
-- [ ] Reset removes storage key and all `data-nagish-*` attributes.
+- [ ] Reset removes storage key and all `data-nagishon-*` attributes.
 - [ ] Works when host CSS is hostile (demo).
 - [ ] README disclaimer present; no "compliant"/"100%" claims; no invented numbers, logos or testimonials.
 - [ ] License MIT, copyright "zloto-labs".
@@ -43,4 +43,4 @@ source ~/.nvm/nvm.sh && nvm use && npm run check && npm run test:e2e
 
 Owner request (12.11.2026): after the plugin ships, build a landing page that promotes the free plugin, following the Zloto KB runbook `runbooks/new-project-website-prompt.md` (standalone repo, never inside this one; brand/domain research shortlist; logo, favicon, OG; 3 design directions for the owner to pick; DESIGN.md; humanizer copy; QA desktop + mobile; GA4 + Search Console; stop before buying domains or public launch).
 
-Inputs the landing page takes from this repo: name `nagish`, the 30-second install snippet, the feature list, the honest positioning (not a compliance fix), the statement template and checklist as lead magnets, the live demo page. Goal of the site: adoption of the free plugin (GitHub stars, npm installs) plus optional lead capture for accessibility services. No prices on the plugin page; the plugin stays free.
+Inputs the landing page takes from this repo: name `nagishon`, the 30-second install snippet, the feature list, the honest positioning (not a compliance fix), the statement template and checklist as lead magnets, the live demo page. Goal of the site: adoption of the free plugin (GitHub stars, npm installs) plus optional lead capture for accessibility services. No prices on the plugin page; the plugin stays free.

@@ -1,5 +1,5 @@
 {
-  "name": "nagish",
+  "name": "nagishon",
   "version": "1.0.0",
   "description": "Free, MIT-licensed, framework-agnostic accessibility toolbar (תפריט נגישות), Hebrew/RTL-first.",
   "license": "MIT",
@@ -9,8 +9,8 @@
   ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "unpkg": "dist/nagish.iife.js",
-  "jsdelivr": "dist/nagish.iife.js",
+  "unpkg": "dist/nagishon.iife.js",
+  "jsdelivr": "dist/nagishon.iife.js",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -24,7 +24,7 @@
       "types": "./dist/prepaint.d.ts",
       "import": "./dist/prepaint.module.js"
     },
-    "./iife": "./dist/nagish.iife.js",
+    "./iife": "./dist/nagishon.iife.js",
     "./package.json": "./package.json",
     "./prepaint.js": "./dist/prepaint.js"
   },
@@ -59,7 +59,7 @@
   },
   "size-limit": [
     {
-      "path": "dist/nagish.iife.js",
+      "path": "dist/nagishon.iife.js",
       "limit": "18 KB",
       "gzip": true
     },

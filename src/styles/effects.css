@@ -1,13 +1,13 @@
-/* nagish global page effects, keyed on html[data-nagish-*]. The widget host carries
-   [data-nagish-root]; every global rule excludes it (and anything inside it). */
+/* nagishon global page effects, keyed on html[data-nagishon-*]. The widget host carries
+   [data-nagishon-root]; every global rule excludes it (and anything inside it). */
 
 /* ---------- Contrast: dark (black bg / white text / yellow links) ---------- */
-html[data-nagish-contrast="dark"],
-html[data-nagish-contrast="dark"] body {
+html[data-nagishon-contrast="dark"],
+html[data-nagishon-contrast="dark"] body {
   background-color: #000 !important;
   color: #fff !important;
 }
-html[data-nagish-contrast="dark"] :not(img, video, svg, picture, canvas, iframe, [data-nagish-root], [data-nagish-root] *) {
+html[data-nagishon-contrast="dark"] :not(img, video, svg, picture, canvas, iframe, [data-nagishon-root], [data-nagishon-root] *) {
   background-color: #000 !important;
   background-image: none !important;
   color: #fff !important;
@@ -15,26 +15,26 @@ html[data-nagish-contrast="dark"] :not(img, video, svg, picture, canvas, iframe,
   text-shadow: none !important;
   box-shadow: none !important;
 }
-html[data-nagish-contrast="dark"] a:not([data-nagish-root] *),
-html[data-nagish-contrast="dark"] a:not([data-nagish-root] *) * {
+html[data-nagishon-contrast="dark"] a:not([data-nagishon-root] *),
+html[data-nagishon-contrast="dark"] a:not([data-nagishon-root] *) * {
   color: #ffff00 !important;
 }
-html[data-nagish-contrast="dark"] a:visited:not([data-nagish-root] *),
-html[data-nagish-contrast="dark"] a:visited:not([data-nagish-root] *) * {
+html[data-nagishon-contrast="dark"] a:visited:not([data-nagishon-root] *),
+html[data-nagishon-contrast="dark"] a:visited:not([data-nagishon-root] *) * {
   color: #ffc000 !important;
 }
-html[data-nagish-contrast="dark"] :focus-visible:not([data-nagish-root] *) {
+html[data-nagishon-contrast="dark"] :focus-visible:not([data-nagishon-root] *) {
   outline: 3px solid #ffff00 !important;
   outline-offset: 2px !important;
 }
 
 /* ---------- Contrast: light (white bg / black text / dark-blue links) ---------- */
-html[data-nagish-contrast="light"],
-html[data-nagish-contrast="light"] body {
+html[data-nagishon-contrast="light"],
+html[data-nagishon-contrast="light"] body {
   background-color: #fff !important;
   color: #000 !important;
 }
-html[data-nagish-contrast="light"] :not(img, video, svg, picture, canvas, iframe, [data-nagish-root], [data-nagish-root] *) {
+html[data-nagishon-contrast="light"] :not(img, video, svg, picture, canvas, iframe, [data-nagishon-root], [data-nagishon-root] *) {
   background-color: #fff !important;
   background-image: none !important;
   color: #000 !important;
@@ -42,73 +42,73 @@ html[data-nagish-contrast="light"] :not(img, video, svg, picture, canvas, iframe
   text-shadow: none !important;
   box-shadow: none !important;
 }
-html[data-nagish-contrast="light"] a:not([data-nagish-root] *),
-html[data-nagish-contrast="light"] a:not([data-nagish-root] *) * {
+html[data-nagishon-contrast="light"] a:not([data-nagishon-root] *),
+html[data-nagishon-contrast="light"] a:not([data-nagishon-root] *) * {
   color: #0000ee !important;
 }
-html[data-nagish-contrast="light"] a:visited:not([data-nagish-root] *),
-html[data-nagish-contrast="light"] a:visited:not([data-nagish-root] *) * {
+html[data-nagishon-contrast="light"] a:visited:not([data-nagishon-root] *),
+html[data-nagishon-contrast="light"] a:visited:not([data-nagishon-root] *) * {
   color: #551a8b !important;
 }
-html[data-nagish-contrast="light"] :focus-visible:not([data-nagish-root] *) {
+html[data-nagishon-contrast="light"] :focus-visible:not([data-nagishon-root] *) {
   outline: 3px solid #005a9c !important;
   outline-offset: 2px !important;
 }
 
 /* ---------- Grayscale ----------
    filter on <html> creates a containing block for position:fixed descendants (documented trade-off). */
-html[data-nagish-grayscale] {
+html[data-nagishon-grayscale] {
   filter: grayscale(1);
 }
 
 /* ---------- Underline links ---------- */
-html[data-nagish-links] a:not([data-nagish-root] *) {
+html[data-nagishon-links] a:not([data-nagishon-root] *) {
   text-decoration: underline !important;
   text-decoration-thickness: 2px !important;
   text-underline-offset: 0.15em !important;
 }
-html[data-nagish-links] a:focus-visible:not([data-nagish-root] *) {
+html[data-nagishon-links] a:focus-visible:not([data-nagishon-root] *) {
   outline: 3px solid currentColor !important;
   outline-offset: 3px !important;
 }
 
 /* ---------- Highlight headings ---------- */
-html[data-nagish-headings] :is(h1, h2, h3, h4, h5, h6):not([data-nagish-root] *) {
+html[data-nagishon-headings] :is(h1, h2, h3, h4, h5, h6):not([data-nagishon-root] *) {
   outline: 2px dashed currentColor !important;
   outline-offset: 4px !important;
   background-color: rgb(255 235 0 / 0.25) !important;
 }
 
 /* ---------- Readable font ---------- */
-html[data-nagish-font] :not([data-nagish-root], [data-nagish-root] *, [data-nagish-keep-font], [data-nagish-keep-font] *, svg *) {
+html[data-nagishon-font] :not([data-nagishon-root], [data-nagishon-root] *, [data-nagishon-keep-font], [data-nagishon-keep-font] *, svg *) {
   font-family: Arial, "Helvetica Neue", Helvetica, "Noto Sans Hebrew", "Segoe UI", Roboto, sans-serif !important;
 }
-html[data-nagish-font] {
+html[data-nagishon-font] {
   font-family: Arial, "Helvetica Neue", Helvetica, "Noto Sans Hebrew", "Segoe UI", Roboto, sans-serif !important;
 }
 
 /* ---------- Text spacing (WCAG 1.4.12) ---------- */
-html[data-nagish-spacing] :not([data-nagish-root], [data-nagish-root] *, svg *) {
+html[data-nagishon-spacing] :not([data-nagishon-root], [data-nagishon-root] *, svg *) {
   line-height: 1.5 !important;
   letter-spacing: 0.12em !important;
   word-spacing: 0.16em !important;
 }
-html[data-nagish-spacing] p:not([data-nagish-root] *) {
+html[data-nagishon-spacing] p:not([data-nagishon-root] *) {
   margin-block-end: 2em !important;
 }
 
 /* ---------- Stop motion ---------- */
-html[data-nagish-motion],
-html[data-nagish-motion] *:not([data-nagish-root], [data-nagish-root] *),
-html[data-nagish-motion] *:not([data-nagish-root], [data-nagish-root] *)::before,
-html[data-nagish-motion] *:not([data-nagish-root], [data-nagish-root] *)::after {
+html[data-nagishon-motion],
+html[data-nagishon-motion] *:not([data-nagishon-root], [data-nagishon-root] *),
+html[data-nagishon-motion] *:not([data-nagishon-root], [data-nagishon-root] *)::before,
+html[data-nagishon-motion] *:not([data-nagishon-root], [data-nagishon-root] *)::after {
   animation: none !important;
   transition: none !important;
   scroll-behavior: auto !important;
 }
 
 /* ---------- Skip link ---------- */
-.nagish-skip {
+.nagishon-skip {
   position: absolute !important;
   inset-block-start: 0;
   inset-inline-start: 0;
@@ -124,20 +124,20 @@ html[data-nagish-motion] *:not([data-nagish-root], [data-nagish-root] *)::after 
   border: 2px solid #fff !important;
   transform: translateY(-200%);
 }
-.nagish-skip:focus,
-.nagish-skip:focus-visible {
+.nagishon-skip:focus,
+.nagishon-skip:focus-visible {
   transform: none;
   outline: 3px solid #ffbf47 !important;
   outline-offset: 2px;
 }
 @media (prefers-reduced-motion: no-preference) {
-  .nagish-skip {
+  .nagishon-skip {
     transition: transform 0.15s ease-out;
   }
 }
 
 /* ---------- Reading guide (element created by JS) ---------- */
-[data-nagish-root="guide"] {
+[data-nagishon-root="guide"] {
   position: fixed;
   inset-inline: 0;
   inset-block-start: 0;

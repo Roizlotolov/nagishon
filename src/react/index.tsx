@@ -1,30 +1,30 @@
 "use client";
 import { useEffect, useRef, useSyncExternalStore } from "react";
-import { DEFAULT_STATE, get, init, type NagishInstance, type NagishOptions, type NagishState } from "../index";
+import { DEFAULT_STATE, get, init, type NagishonInstance, type NagishonOptions, type NagishonState } from "../index";
 
-export function NagishWidget(props: NagishOptions): null {
+export function NagishonWidget(props: NagishonOptions): null {
   const ref = useRef(props.onChange);
   ref.current = props.onChange;
   const key = JSON.stringify({ ...props, onChange: undefined });
   useEffect(() => {
-    const opts: NagishOptions = { ...JSON.parse(key), onChange: (s) => ref.current?.(s) };
+    const opts: NagishonOptions = { ...JSON.parse(key), onChange: (s) => ref.current?.(s) };
     const instance = init(opts);
     return () => instance.destroy();
   }, [key]);
   return null;
 }
 
-let snapshot: NagishState = DEFAULT_STATE;
+let snapshot: NagishonState = DEFAULT_STATE;
 function subscribe(cb: () => void): () => void {
   const fn = () => cb();
-  window.addEventListener("nagish:change", fn);
-  window.addEventListener("nagish:ready", fn);
+  window.addEventListener("nagishon:change", fn);
+  window.addEventListener("nagishon:ready", fn);
   return () => {
-    window.removeEventListener("nagish:change", fn);
-    window.removeEventListener("nagish:ready", fn);
+    window.removeEventListener("nagishon:change", fn);
+    window.removeEventListener("nagishon:ready", fn);
   };
 }
-function getSnapshot(): NagishState {
+function getSnapshot(): NagishonState {
   const inst = get();
   if (inst) {
     const s = inst.getState();
@@ -33,18 +33,18 @@ function getSnapshot(): NagishState {
   return snapshot;
 }
 
-export function useNagish() {
+export function useNagishon() {
   const state = useSyncExternalStore(subscribe, getSnapshot, () => DEFAULT_STATE);
-  const instance: NagishInstance | null = typeof window === "undefined" ? null : get();
+  const instance: NagishonInstance | null = typeof window === "undefined" ? null : get();
   return {
     state,
     instance,
-    set: ((k, v) => get()?.set(k, v)) as NagishInstance["set"],
-    setState: (p: Partial<NagishState>) => get()?.setState(p),
+    set: ((k, v) => get()?.set(k, v)) as NagishonInstance["set"],
+    setState: (p: Partial<NagishonState>) => get()?.setState(p),
     reset: () => get()?.reset(),
     open: () => get()?.open(),
     close: () => get()?.close(),
   };
 }
 
-export { NAGISH_PREPAINT } from "../prepaint";
+export { NAGISHON_PREPAINT } from "../prepaint";

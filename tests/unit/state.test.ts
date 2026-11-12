@@ -49,23 +49,23 @@ describe("storage", () => {
 
   it("removes the key when state equals default", () => {
     writeStoredState({ ...DEFAULT_STATE, grayscale: true });
-    expect(localStorage.getItem("nagish:v1")).not.toBeNull();
+    expect(localStorage.getItem("nagishon:v1")).not.toBeNull();
     writeStoredState({ ...DEFAULT_STATE });
-    expect(localStorage.getItem("nagish:v1")).toBeNull();
+    expect(localStorage.getItem("nagishon:v1")).toBeNull();
   });
 
   it("reads null when nothing stored and tolerates corrupt JSON", () => {
     expect(readStoredState()).toBeNull();
-    localStorage.setItem("nagish:v1", "{not json");
+    localStorage.setItem("nagishon:v1", "{not json");
     expect(readStoredState()).toBeNull();
   });
 
   it("store applies initialState only when nothing is stored", () => {
-    const a = createStateStore("nagish:v1", { grayscale: true });
+    const a = createStateStore("nagishon:v1", { grayscale: true });
     expect(a.get().grayscale).toBe(true);
     a.destroy();
-    localStorage.setItem("nagish:v1", JSON.stringify({ contrast: "light" }));
-    const b = createStateStore("nagish:v1", { grayscale: true });
+    localStorage.setItem("nagishon:v1", JSON.stringify({ contrast: "light" }));
+    const b = createStateStore("nagishon:v1", { grayscale: true });
     expect(b.get().grayscale).toBe(false);
     expect(b.get().contrast).toBe("light");
     b.destroy();
@@ -76,10 +76,10 @@ describe("storage", () => {
     const seen: boolean[] = [];
     store.subscribe((s) => seen.push(s.stopMotion));
     store.set({ stopMotion: true });
-    expect(JSON.parse(localStorage.getItem("nagish:v1") ?? "{}").stopMotion).toBe(true);
+    expect(JSON.parse(localStorage.getItem("nagishon:v1") ?? "{}").stopMotion).toBe(true);
     store.set({ stopMotion: true }); // no change, no emit
     store.reset();
-    expect(localStorage.getItem("nagish:v1")).toBeNull();
+    expect(localStorage.getItem("nagishon:v1")).toBeNull();
     expect(seen).toEqual([true, false]);
     store.destroy();
   });
@@ -88,11 +88,11 @@ describe("storage", () => {
     const store = createStateStore();
     const seen: string[] = [];
     store.subscribe((s) => seen.push(s.contrast));
-    localStorage.setItem("nagish:v1", JSON.stringify({ contrast: "dark" }));
-    window.dispatchEvent(new StorageEvent("storage", { key: "nagish:v1", newValue: '{"contrast":"dark"}' }));
+    localStorage.setItem("nagishon:v1", JSON.stringify({ contrast: "dark" }));
+    window.dispatchEvent(new StorageEvent("storage", { key: "nagishon:v1", newValue: '{"contrast":"dark"}' }));
     expect(store.get().contrast).toBe("dark");
-    localStorage.removeItem("nagish:v1");
-    window.dispatchEvent(new StorageEvent("storage", { key: "nagish:v1", newValue: null }));
+    localStorage.removeItem("nagishon:v1");
+    window.dispatchEvent(new StorageEvent("storage", { key: "nagishon:v1", newValue: null }));
     expect(store.get().contrast).toBe("none");
     window.dispatchEvent(new StorageEvent("storage", { key: "other", newValue: "x" }));
     expect(seen).toEqual(["dark", "none"]);

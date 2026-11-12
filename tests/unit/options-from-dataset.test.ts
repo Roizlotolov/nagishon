@@ -4,7 +4,7 @@ import { optionsFromDataset } from "../../src/options-from-dataset";
 describe("optionsFromDataset", () => {
   it("parses all supported attributes", () => {
     const o = optionsFromDataset({
-      nagish: "",
+      nagishon: "",
       locale: "en",
       position: "end",
       statementUrl: "/a",

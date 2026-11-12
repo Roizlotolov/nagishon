@@ -6,7 +6,7 @@ function setup() {
     <p id="a" style="font-size: 20px">שלום עולם</p>
     <p id="b" style="font-size: 16px !important; line-height: 24px">עוד טקסט</p>
     <div id="empty" style="font-size: 30px"><span id="c" style="font-size: 10px">x</span></div>
-    <nagish-widget data-nagish-root><p id="w" style="font-size: 18px">widget</p></nagish-widget>
+    <nagishon-widget data-nagishon-root><p id="w" style="font-size: 18px">widget</p></nagishon-widget>
   `;
   return (id: string) => document.getElementById(id) as HTMLElement;
 }
@@ -47,7 +47,7 @@ describe("text scaling (elements)", () => {
     expect($("b").style.fontSize).toBe("16px");
     expect($("b").style.getPropertyPriority("font-size")).toBe("important");
     expect($("b").style.lineHeight).toBe("24px");
-    expect(document.querySelectorAll("[data-nagish-scaled]").length).toBe(0);
+    expect(document.querySelectorAll("[data-nagishon-scaled]").length).toBe(0);
   });
 
   it("removes the property and empty style attribute when there was no inline value", () => {

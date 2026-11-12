@@ -4,14 +4,14 @@ import { DEFAULT_STATE } from "../../src/core/state";
 
 const html = document.documentElement;
 const BOOL_ATTRS: Record<string, string> = {
-  grayscale: "data-nagish-grayscale",
-  underlineLinks: "data-nagish-links",
-  highlightHeadings: "data-nagish-headings",
-  readableFont: "data-nagish-font",
-  textSpacing: "data-nagish-spacing",
-  stopMotion: "data-nagish-motion",
-  bigCursor: "data-nagish-cursor",
-  readingGuide: "data-nagish-guide",
+  grayscale: "data-nagishon-grayscale",
+  underlineLinks: "data-nagishon-links",
+  highlightHeadings: "data-nagishon-headings",
+  readableFont: "data-nagishon-font",
+  textSpacing: "data-nagishon-spacing",
+  stopMotion: "data-nagishon-motion",
+  bigCursor: "data-nagishon-cursor",
+  readingGuide: "data-nagishon-guide",
 };
 
 describe("applyAttrs", () => {
@@ -19,8 +19,8 @@ describe("applyAttrs", () => {
 
   it("sets text and contrast always, booleans absent for defaults", () => {
     applyAttrs({ ...DEFAULT_STATE });
-    expect(html.getAttribute("data-nagish-text")).toBe("1");
-    expect(html.getAttribute("data-nagish-contrast")).toBe("none");
+    expect(html.getAttribute("data-nagishon-text")).toBe("1");
+    expect(html.getAttribute("data-nagishon-contrast")).toBe("none");
     for (const a of Object.values(BOOL_ATTRS)) expect(html.hasAttribute(a)).toBe(false);
   });
 
@@ -33,13 +33,13 @@ describe("applyAttrs", () => {
 
   it("reflects scale and contrast values", () => {
     applyAttrs({ ...DEFAULT_STATE, textScale: 1.75, contrast: "light" });
-    expect(html.getAttribute("data-nagish-text")).toBe("1.75");
-    expect(html.getAttribute("data-nagish-contrast")).toBe("light");
+    expect(html.getAttribute("data-nagishon-text")).toBe("1.75");
+    expect(html.getAttribute("data-nagishon-contrast")).toBe("light");
   });
 
-  it("clearAttrs removes every data-nagish-* attribute", () => {
+  it("clearAttrs removes every data-nagishon-* attribute", () => {
     applyAttrs({ ...DEFAULT_STATE, grayscale: true });
     clearAttrs();
-    expect(html.getAttributeNames().filter((n) => n.startsWith("data-nagish-"))).toEqual([]);
+    expect(html.getAttributeNames().filter((n) => n.startsWith("data-nagishon-"))).toEqual([]);
   });
 });

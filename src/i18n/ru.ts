@@ -30,5 +30,5 @@ export const ru: Strings = {
   announceTextSize: "Размер текста: {value}",
   announceOn: "{feature}: включено",
   announceOff: "{feature}: выключено",
-  poweredBy: "Создано с помощью nagish",
+  poweredBy: "Создано с помощью nagishon",
 };

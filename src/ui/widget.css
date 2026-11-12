@@ -1,14 +1,14 @@
-/* nagish widget (Shadow DOM). Logical properties only. */
+/* nagishon widget (Shadow DOM). Logical properties only. */
 :host{
-  all:initial;position:fixed;inset:0;pointer-events:none;z-index:var(--nagish-z,2147483000);
+  all:initial;position:fixed;inset:0;pointer-events:none;z-index:var(--nagishon-z,2147483000);
   display:block;font:1rem/1.5 system-ui,-apple-system,"Segoe UI",Heebo,Arial,sans-serif;
-  --bg:var(--nagish-u-bg,#fff);--fg:var(--nagish-u-fg,#111);--ac:var(--nagish-u-accent,#0b57d0);
-  --on:var(--nagish-u-on,#fff);--mut:#4d4d4d;--line:#767676;--r:var(--nagish-u-radius,12px);
+  --bg:var(--nagishon-u-bg,#fff);--fg:var(--nagishon-u-fg,#111);--ac:var(--nagishon-u-accent,#0b57d0);
+  --on:var(--nagishon-u-on,#fff);--mut:#4d4d4d;--line:#767676;--r:var(--nagishon-u-radius,12px);
 }
 @media (prefers-color-scheme:dark){
   :host([data-contrast="none"]){
-    --bg:var(--nagish-u-bg,#1b1b1f);--fg:var(--nagish-u-fg,#f2f2f2);--ac:var(--nagish-u-accent,#8ab4f8);
-    --on:var(--nagish-u-on,#1b1b1f);--mut:#c4c4cc;--line:#8f8f99;
+    --bg:var(--nagishon-u-bg,#1b1b1f);--fg:var(--nagishon-u-fg,#f2f2f2);--ac:var(--nagishon-u-accent,#8ab4f8);
+    --on:var(--nagishon-u-on,#1b1b1f);--mut:#c4c4cc;--line:#8f8f99;
   }
 }
 :host([data-contrast="dark"]){--bg:#000;--fg:#fff;--ac:#ffeb3b;--on:#000;--mut:#fff;--line:#fff}

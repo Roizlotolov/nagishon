@@ -30,5 +30,5 @@ export const en: Strings = {
   announceTextSize: "Text size: {value}",
   announceOn: "{feature} on",
   announceOff: "{feature} off",
-  poweredBy: "Built with nagish",
+  poweredBy: "Built with nagishon",
 };

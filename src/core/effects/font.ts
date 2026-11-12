@@ -1,6 +1,6 @@
 const ICON_RE = /icon|font ?awesome|material|glyph|symbols?|fontello|ionicons/i;
-const MARK = "data-nagish-keep-font";
-const ATTR = "data-nagish-font";
+const MARK = "data-nagishon-keep-font";
+const ATTR = "data-nagishon-font";
 
 /**
  * Marks elements using icon fonts so the "readable font" rule leaves them alone.
@@ -14,7 +14,7 @@ export function markIconFonts(): void {
   try {
     const marks: Element[] = [];
     document.body.querySelectorAll("*").forEach((el) => {
-      if (el.closest("[data-nagish-root]")) return;
+      if (el.closest("[data-nagishon-root]")) return;
       const family = getComputedStyle(el).fontFamily;
       if (family && ICON_RE.test(family)) marks.push(el);
     });

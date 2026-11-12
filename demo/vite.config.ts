@@ -12,9 +12,9 @@ const input = Object.fromEntries(
 );
 
 // tsup imports `.css` as text (loader: text); mirror that for Vite so ../src works in the demo.
-const PREFIX = "\0nagish-css:";
+const PREFIX = "\0nagishon-css:";
 const cssAsText: Plugin = {
-  name: "nagish-css-as-text",
+  name: "nagishon-css-as-text",
   enforce: "pre",
   resolveId(source, importer) {
     if (!source.endsWith(".css") || !importer || !importer.startsWith(resolve(root, "../src"))) return null;

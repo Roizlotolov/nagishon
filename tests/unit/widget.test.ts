@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { get, init } from "../../src/index";
 
-const host = () => document.querySelector("nagish-widget") as HTMLElement;
+const host = () => document.querySelector("nagishon-widget") as HTMLElement;
 const sr = () => host().shadowRoot as ShadowRoot;
 const q = <T extends Element = HTMLElement>(sel: string) => sr().querySelector(sel) as T;
 const key = (k: string, opts: KeyboardEventInit = {}, target: EventTarget = document) =>
@@ -19,7 +19,7 @@ afterEach(() => {
 describe("widget", () => {
   it("renders a host with shadow root, lang and dir", () => {
     init();
-    expect(host().hasAttribute("data-nagish-root")).toBe(true);
+    expect(host().hasAttribute("data-nagishon-root")).toBe(true);
     expect(host().getAttribute("lang")).toBe("he");
     expect(host().getAttribute("dir")).toBe("rtl");
     const l = q('[data-action="open"]');
@@ -34,7 +34,7 @@ describe("widget", () => {
     l.focus();
     l.click();
     expect(l.getAttribute("aria-expanded")).toBe("true");
-    expect(sr().activeElement).toBe(q("#nagish-title"));
+    expect(sr().activeElement).toBe(q("#nagishon-title"));
     expect(q('[role="dialog"]').hasAttribute("hidden")).toBe(false);
     key("Escape");
     expect(l.getAttribute("aria-expanded")).toBe("false");
@@ -69,8 +69,8 @@ describe("widget", () => {
     sw.click();
     expect(sw.getAttribute("aria-checked")).toBe("true");
     expect(get()!.getState().grayscale).toBe(true);
-    expect(JSON.parse(localStorage.getItem("nagish:v1")!).grayscale).toBe(true);
-    expect(document.documentElement.hasAttribute("data-nagish-grayscale")).toBe(true);
+    expect(JSON.parse(localStorage.getItem("nagishon:v1")!).grayscale).toBe(true);
+    expect(document.documentElement.hasAttribute("data-nagishon-grayscale")).toBe(true);
     expect(q('[aria-live="polite"]').textContent).toContain("גווני אפור");
   });
 
@@ -91,10 +91,10 @@ describe("widget", () => {
   it("reset restores defaults and removes the storage key", () => {
     init();
     q('[data-key="bigCursor"]').click();
-    expect(localStorage.getItem("nagish:v1")).not.toBeNull();
+    expect(localStorage.getItem("nagishon:v1")).not.toBeNull();
     q('[data-action="reset"]').click();
     expect(get()!.getState().bigCursor).toBe(false);
-    expect(localStorage.getItem("nagish:v1")).toBeNull();
+    expect(localStorage.getItem("nagishon:v1")).toBeNull();
     expect(q('[data-key="bigCursor"]').getAttribute("aria-checked")).toBe("false");
   });
 
@@ -128,15 +128,15 @@ describe("widget", () => {
   it("en locale flips to ltr", () => {
     init({ locale: "en" });
     expect(host().getAttribute("dir")).toBe("ltr");
-    expect(q("#nagish-title").textContent).toBe("Accessibility settings");
+    expect(q("#nagishon-title").textContent).toBe("Accessibility settings");
   });
 
-  it("destroy removes host and data-nagish-* attributes", () => {
+  it("destroy removes host and data-nagishon-* attributes", () => {
     init();
     q('[data-key="grayscale"]').click();
     get()!.destroy();
-    expect(document.querySelector("nagish-widget")).toBeNull();
-    expect(document.documentElement.getAttributeNames().filter((n) => n.startsWith("data-nagish-"))).toEqual([]);
+    expect(document.querySelector("nagishon-widget")).toBeNull();
+    expect(document.documentElement.getAttributeNames().filter((n) => n.startsWith("data-nagishon-"))).toEqual([]);
     expect(get()).toBeNull();
   });
 

@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { launcher, waitForWidget } from "./helpers";
 
-test("IIFE page: window.Nagish.get() returns an instance and there are no console errors", async ({ page }) => {
+test("IIFE page: window.Nagishon.get() returns an instance and there are no console errors", async ({ page }) => {
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(`pageerror: ${e.message}`));
   page.on("console", (m) => {
@@ -11,7 +11,7 @@ test("IIFE page: window.Nagish.get() returns an instance and there are no consol
   await page.goto("/iife.html");
   await waitForWidget(page);
   const info = await page.evaluate(() => {
-    const n = (window as unknown as { Nagish?: { get(): unknown; init: unknown; version?: string } }).Nagish;
+    const n = (window as unknown as { Nagishon?: { get(): unknown; init: unknown; version?: string } }).Nagishon;
     const instance = n?.get() as Record<string, unknown> | null | undefined;
     return {
       hasGlobal: !!n,
@@ -27,9 +27,9 @@ test("IIFE page: window.Nagish.get() returns an instance and there are no consol
 test("IIFE auto-init wires the statement link and skip link from data attributes", async ({ page }) => {
   await page.goto("/iife.html");
   await waitForWidget(page);
-  await expect(page.locator("a.nagish-skip")).toHaveAttribute("href", "#main");
+  await expect(page.locator("a.nagishon-skip")).toHaveAttribute("href", "#main");
   await launcher(page).click();
-  await expect(page.locator('nagish-widget[data-nagish-root] a[href="/statement.html"]')).toBeVisible();
+  await expect(page.locator('nagishon-widget[data-nagishon-root] a[href="/statement.html"]')).toBeVisible();
 });
 
 test("hostile host CSS: the launcher keeps a usable size and stays visible", async ({ page }) => {
@@ -47,8 +47,8 @@ test("hostile host CSS: the launcher keeps a usable size and stays visible", asy
 test("RTL and LTR follow the locale", async ({ page }) => {
   await page.goto("/");
   await waitForWidget(page);
-  await expect(page.locator("nagish-widget[data-nagish-root]")).toHaveAttribute("dir", "rtl");
+  await expect(page.locator("nagishon-widget[data-nagishon-root]")).toHaveAttribute("dir", "rtl");
   await page.goto("/en.html");
   await waitForWidget(page);
-  await expect(page.locator("nagish-widget[data-nagish-root]")).toHaveAttribute("dir", "ltr");
+  await expect(page.locator("nagishon-widget[data-nagishon-root]")).toHaveAttribute("dir", "ltr");
 });

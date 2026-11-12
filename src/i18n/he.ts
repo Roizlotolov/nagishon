@@ -28,7 +28,7 @@ export const he = {
   announceTextSize: "גודל הטקסט: {value}",
   announceOn: "{feature} פעיל",
   announceOff: "{feature} כבוי",
-  poweredBy: "נבנה עם nagish",
+  poweredBy: "נבנה עם nagishon",
 } as const;
 
 export type Strings = { [K in keyof typeof he]: string };

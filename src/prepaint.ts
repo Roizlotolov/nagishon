@@ -2,7 +2,7 @@ import { applyAttrs } from "./core/attrs";
 import { DEFAULT_STORAGE_KEY, normalizeState } from "./core/state";
 
 /**
- * Returns an IIFE source string that reads the stored state and applies the data-nagish-*
+ * Returns an IIFE source string that reads the stored state and applies the data-nagishon-*
  * attributes synchronously, before first paint. Built from the very functions used at runtime.
  */
 export function prepaintScript(storageKey: string = DEFAULT_STORAGE_KEY): string {
@@ -17,4 +17,4 @@ export function prepaintScript(storageKey: string = DEFAULT_STORAGE_KEY): string
   );
 }
 
-export const NAGISH_PREPAINT: string = prepaintScript();
+export const NAGISHON_PREPAINT: string = prepaintScript();

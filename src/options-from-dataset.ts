@@ -1,7 +1,7 @@
-import type { NagishState } from "./core/state";
-import type { NagishOptions } from "./index";
+import type { NagishonState } from "./core/state";
+import type { NagishonOptions } from "./index";
 
-const FEATURE_KEYS: (keyof NagishState)[] = [
+const FEATURE_KEYS: (keyof NagishonState)[] = [
   "textScale",
   "contrast",
   "grayscale",
@@ -14,9 +14,9 @@ const FEATURE_KEYS: (keyof NagishState)[] = [
   "readingGuide",
 ];
 
-/** Parses `data-*` attributes of the <script> element into NagishOptions. Invalid values are ignored. */
-export function optionsFromDataset(ds: DOMStringMap | Record<string, string | undefined>): NagishOptions {
-  const o: NagishOptions = {};
+/** Parses `data-*` attributes of the <script> element into NagishonOptions. Invalid values are ignored. */
+export function optionsFromDataset(ds: DOMStringMap | Record<string, string | undefined>): NagishonOptions {
+  const o: NagishonOptions = {};
   if (ds.locale) o.locale = ds.locale;
   if (ds.position === "start" || ds.position === "end") o.position = ds.position;
   if (ds.statementUrl) o.statementUrl = ds.statementUrl;
@@ -34,7 +34,7 @@ export function optionsFromDataset(ds: DOMStringMap | Record<string, string | un
   }
   if (ds.features) {
     const wanted = ds.features.split(",").map((s) => s.trim());
-    const f: Partial<Record<keyof NagishState, boolean>> = {};
+    const f: Partial<Record<keyof NagishonState, boolean>> = {};
     for (const k of FEATURE_KEYS) f[k] = wanted.indexOf(k) !== -1;
     o.features = f;
   }

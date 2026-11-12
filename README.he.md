@@ -1,10 +1,10 @@
 <div dir="rtl">
 
-# nagish (נגיש)
+# nagishon (נגישון)
 
-[![CI](https://github.com/zloto-labs/nagish/actions/workflows/ci.yml/badge.svg)](https://github.com/zloto-labs/nagish/actions/workflows/ci.yml)
-[![גרסת npm](https://img.shields.io/npm/v/nagish.svg)](https://www.npmjs.com/package/nagish)
-[![גודל](https://img.shields.io/bundlephobia/minzip/nagish)](https://bundlephobia.com/package/nagish)
+[![CI](https://github.com/zloto-labs/nagishon/actions/workflows/ci.yml/badge.svg)](https://github.com/zloto-labs/nagishon/actions/workflows/ci.yml)
+[![גרסת npm](https://img.shields.io/npm/v/nagishon.svg)](https://www.npmjs.com/package/nagishon)
+[![גודל](https://img.shields.io/bundlephobia/minzip/nagishon)](https://bundlephobia.com/package/nagishon)
 [![רישיון: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 תפריט נגישות חינמי בקוד פתוח (MIT) לאתרים, בעברית ומימין לשמאל כברירת מחדל. כתוב ב־TypeScript ללא תלויות זמן ריצה, ללא בקשות רשת וללא עוגיות. [English README](README.md).
@@ -24,74 +24,74 @@
 הוסיפו שורה אחת לפני `</body>`:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/nagish@1/dist/nagish.iife.js" defer data-nagish data-statement-url="/accessibility"></script>
+<script src="https://cdn.jsdelivr.net/npm/nagishon@1/dist/nagishon.iife.js" defer data-nagishon data-statement-url="/accessibility"></script>
 ```
 
 אופציונלי, מונע הבהוב של ההגדרות השמורות בביקורים חוזרים. הדביקו **בתוך `<head>`**, בלי `defer` ובלי `async`. הסקריפט מחיל את ההגדרות השמורות לפני הציור הראשון:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/nagish@1/dist/prepaint.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/nagishon@1/dist/prepaint.js"></script>
 ```
 
-מאפייני data שתג הסקריפט מכיר: `data-locale`, `data-position`, `data-statement-url`, `data-contact-url`, `data-hotkey`, `data-text-scaling`, `data-skip-link` (סלקטור, למשל `#main`), `data-accent`, `data-z-index`, `data-features` (רשימה מופרדת בפסיקים של התכונות היחידות להפעלה, למשל `textScale,contrast`), ו־`data-nagish-manual` כדי לדלג על אתחול אוטומטי ולקרוא ל־`Nagish.init()` בעצמכם.
+מאפייני data שתג הסקריפט מכיר: `data-locale`, `data-position`, `data-statement-url`, `data-contact-url`, `data-hotkey`, `data-text-scaling`, `data-skip-link` (סלקטור, למשל `#main`), `data-accent`, `data-z-index`, `data-features` (רשימה מופרדת בפסיקים של התכונות היחידות להפעלה, למשל `textScale,contrast`), ו־`data-nagishon-manual` כדי לדלג על אתחול אוטומטי ולקרוא ל־`Nagishon.init()` בעצמכם.
 
 ```html
 <script>
-  Nagish.init({ locale: "he", statementUrl: "/accessibility", skipLink: { target: "#main" } });
+  Nagishon.init({ locale: "he", statementUrl: "/accessibility", skipLink: { target: "#main" } });
 </script>
 ```
 
 ## npm / ESM
 
 ```bash
-npm install nagish
+npm install nagishon
 ```
 
 ```ts
-import { init } from "nagish";
+import { init } from "nagishon";
 
-const nagish = init({
+const nagishon = init({
   statementUrl: "/accessibility",
   contactUrl: "mailto:accessibility@your-domain.example",
   skipLink: { target: "#main" },
 });
 ```
 
-`init()` אידמפוטנטי: קריאה שנייה מחזירה את המופע הקיים. קראו ל־`nagish.destroy()` כדי להסיר אותו.
+`init()` אידמפוטנטי: קריאה שנייה מחזירה את המופע הקיים. קראו ל־`nagishon.destroy()` כדי להסיר אותו.
 
 ## Next.js (App Router)
 
 ```tsx
 // app/layout.tsx
-import { NAGISH_PREPAINT } from "nagish/prepaint";
-import { NagishWidget } from "nagish/react";
+import { NAGISHON_PREPAINT } from "nagishon/prepaint";
+import { NagishonWidget } from "nagishon/react";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="he" dir="rtl">
       <head>
-        <script dangerouslySetInnerHTML={{ __html: NAGISH_PREPAINT }} />
+        <script dangerouslySetInnerHTML={{ __html: NAGISHON_PREPAINT }} />
       </head>
       <body>
         {children}
-        <NagishWidget statementUrl="/accessibility" />
+        <NagishonWidget statementUrl="/accessibility" />
       </body>
     </html>
   );
 }
 ```
 
-ב־`nagish/react` כבר מופיע `"use client"`, ולכן אפשר לייבא אותו מתוך Server Component. הרכיב לא מציג דבר בשרת ומתעגן אחרי ההידרציה. סקריפט ה־pre-paint מוסיף מאפייני `data-nagish-*` ל־`<html>` לפני ההידרציה, ולכן מומלץ להוסיף `suppressHydrationWarning` ל־`<html>`.
+ב־`nagishon/react` כבר מופיע `"use client"`, ולכן אפשר לייבא אותו מתוך Server Component. הרכיב לא מציג דבר בשרת ומתעגן אחרי ההידרציה. סקריפט ה־pre-paint מוסיף מאפייני `data-nagishon-*` ל־`<html>` לפני ההידרציה, ולכן מומלץ להוסיף `suppressHydrationWarning` ל־`<html>`.
 
 ## React / Vite
 
 ```tsx
-import { NagishWidget, useNagish } from "nagish/react";
+import { NagishonWidget, useNagishon } from "nagishon/react";
 
 export function App() {
   return (
     <>
-      <NagishWidget statementUrl="/accessibility" skipLink={{ target: "#main" }} />
+      <NagishonWidget statementUrl="/accessibility" skipLink={{ target: "#main" }} />
       <main id="main">...</main>
       <OpenButton />
     </>
@@ -99,12 +99,12 @@ export function App() {
 }
 
 function OpenButton() {
-  const { state, open } = useNagish();
+  const { state, open } = useNagishon();
   return <button onClick={open}>נגישות (טקסט {state.textScale * 100}%)</button>;
 }
 ```
 
-`useNagish()` מחזיר `{ state, set, setState, reset, open, close, instance }`, בטוח ל־SSR ומאזין לאירוע `change` של המופע. כדי להשתמש בכפתור משלכם, רנדרו `<NagishWidget launcher={{ hidden: true }} />` וקראו ל־`open()`.
+`useNagishon()` מחזיר `{ state, set, setState, reset, open, close, instance }`, בטוח ל־SSR ומאזין לאירוע `change` של המופע. כדי להשתמש בכפתור משלכם, רנדרו `<NagishonWidget launcher={{ hidden: true }} />` וקראו ל־`open()`.
 
 ## אפשרויות
 
@@ -119,40 +119,40 @@ function OpenButton() {
 | `hotkey` | `string \| false` | `"Alt+Shift+A"` | קיצור לפתיחה וסגירה, בפורמט `Mod+Key` כש־Mod הוא `Alt`, `Ctrl`, `Shift` או `Meta`, מחוברים ב־`+`. `false` מכבה אותו. |
 | `textScaling` | `"elements" \| "root"` | `"elements"` | אסטרטגיית הגדלת הטקסט, ראו בהמשך. |
 | `skipLink` | `{ target: string; label?: string } \| false` | `false` | מוסיף קישור «דילוג לתוכן המרכזי» כאלמנט הראשון ב־`<body>`. |
-| `features` | `Partial<Record<keyof NagishState, boolean>>` | הכול `true` | הסתרת בקרות בודדות, למשל `{ bigCursor: false }`. |
+| `features` | `Partial<Record<keyof NagishonState, boolean>>` | הכול `true` | הסתרת בקרות בודדות, למשל `{ bigCursor: false }`. |
 | `theme` | `Partial<{ accent: string; background: string; foreground: string; radius: string; zIndex: number }>` | ערכת נושא בהירה/כהה מובנית | התאמות ויזואליות, ראו «עיצוב». |
 | `launcher` | `{ label?: string; showText?: boolean; hidden?: boolean }` | `{ showText: true, hidden: false }` | `hidden: true` מסיר את הכפתור המובנה וקוראים ל־`open()` בעצמכם. `showText: false` מציג אייקון בלבד (השם הנגיש מגיע מ־`label`). |
-| `initialState` | `Partial<NagishState>` | אין | מוחל רק כשאין למבקר מצב שמור. |
-| `storageKey` | `string` | `"nagish:v1"` | מפתח ב־`localStorage`. אם שיניתם אותו, העבירו את אותו מפתח לסקריפט ה־pre-paint (`prepaintScript(key)` מתוך `nagish/prepaint`). |
-| `onChange` | `(state: NagishState) => void` | אין | נקרא אחרי כל שינוי. |
+| `initialState` | `Partial<NagishonState>` | אין | מוחל רק כשאין למבקר מצב שמור. |
+| `storageKey` | `string` | `"nagishon:v1"` | מפתח ב־`localStorage`. אם שיניתם אותו, העבירו את אותו מפתח לסקריפט ה־pre-paint (`prepaintScript(key)` מתוך `nagishon/prepaint`). |
+| `onChange` | `(state: NagishonState) => void` | אין | נקרא אחרי כל שינוי. |
 
 מפתחות המצב: `textScale` (‏1, 1.25, 1.5, 1.75, 2), `contrast` (‏`"none" | "dark" | "light"`), ‏`grayscale`, ‏`underlineLinks`, ‏`highlightHeadings`, ‏`readableFont`, ‏`textSpacing`, ‏`stopMotion`, ‏`bigCursor`, ‏`readingGuide` (בוליאניים). סרגל הקריאה מוצע במכשירי הצבעה (עכבר) בלבד.
 
 ## API של המופע
 
 ```ts
-const nagish = init();
-nagish.open(); nagish.close(); nagish.toggle();
-nagish.getState();                    // NagishState
-nagish.set("contrast", "dark");       // מפתח אחד
-nagish.setState({ textScale: 1.5, underlineLinks: true });
-nagish.reset();                       // חזרה לברירות מחדל, מפתח האחסון נמחק
-const off = nagish.on("change", (state) => console.log(state)); // וגם "open" ו־"close"
+const nagishon = init();
+nagishon.open(); nagishon.close(); nagishon.toggle();
+nagishon.getState();                    // NagishonState
+nagishon.set("contrast", "dark");       // מפתח אחד
+nagishon.setState({ textScale: 1.5, underlineLinks: true });
+nagishon.reset();                       // חזרה לברירות מחדל, מפתח האחסון נמחק
+const off = nagishon.on("change", (state) => console.log(state)); // וגם "open" ו־"close"
 off();
-nagish.destroy();                     // מסיר DOM, מאזינים ו־observers; האחסון נשאר
+nagishon.destroy();                     // מסיר DOM, מאזינים ו־observers; האחסון נשאר
 ```
 
-`get()` מחזיר את המופע הנוכחי או `null`. בגרסת תג הסקריפט אותן פונקציות זמינות ב־`window.Nagish` (‏`init`, ‏`get`, ‏`version`).
+`get()` מחזיר את המופע הנוכחי או `null`. בגרסת תג הסקריפט אותן פונקציות זמינות ב־`window.Nagishon` (‏`init`, ‏`get`, ‏`version`).
 
 ## אירועים
 
 התפריט שולח אירועים על `window`:
 
-- `nagish:ready`: אחרי האתחול.
-- `nagish:change`: בכל שינוי מצב, והמצב ב־`event.detail`.
+- `nagishon:ready`: אחרי האתחול.
+- `nagishon:change`: בכל שינוי מצב, והמצב ב־`event.detail`.
 
 ```js
-window.addEventListener("nagish:change", (e) => console.log(e.detail.textScale));
+window.addEventListener("nagishon:change", (e) => console.log(e.detail.textScale));
 ```
 
 ## עיצוב
@@ -178,7 +178,7 @@ init({ theme: { accent: "#0b4aa8", radius: "8px", zIndex: 10000 } });
 
 ## פרטיות
 
-אין בקשות רשת, אין עוגיות, אין אנליטיקס ואין גופנים חיצוניים. האחסון היחיד הוא `localStorage` תחת `nagish:v1` (נמחק כשההגדרות חוזרות לברירת המחדל). ההגדרות מסתנכרנות בין לשוניות של אותו origin דרך אירוע `storage`.
+אין בקשות רשת, אין עוגיות, אין אנליטיקס ואין גופנים חיצוניים. האחסון היחיד הוא `localStorage` תחת `nagishon:v1` (נמחק כשההגדרות חוזרות לברירת המחדל). ההגדרות מסתנכרנות בין לשוניות של אותו origin דרך אירוע `storage`.
 
 ## הנגישות של התפריט עצמו
 
@@ -186,7 +186,7 @@ init({ theme: { accent: "#0b4aa8", radius: "8px", zIndex: 10000 } });
 
 - axe-core (תגיות `wcag2a`, ‏`wcag2aa`, ‏`wcag21a`, ‏`wcag21aa`) רץ ב־Playwright על דף ההדגמה כשהחלון סגור, פתוח, פתוח כשהדף בניגודיות כהה, ובשפה האנגלית (LTR).
 - בדיקות מקלדת מתוסרטות: Tab מגיע לכפתור, Enter פותח, המיקוד עובר לכותרת החלון, Tab ו־Shift+Tab נשארים בתוך החלון, Escape סוגר ומחזיר מיקוד, קיצור `Alt+Shift+A` וקישור הדילוג.
-- בדיקות שכל בקרה משנה את מאפיין `data-nagish-*` ואת מצב `aria-checked`/`aria-pressed`, שהגדרות נשמרות לפני הציור הראשון, ושאיפוס מנקה הכול.
+- בדיקות שכל בקרה משנה את מאפיין `data-nagishon-*` ואת מצב `aria-checked`/`aria-pressed`, שהגדרות נשמרות לפני הציור הראשון, ושאיפוס מנקה הכול.
 - התפריט מוצג ב־Shadow DOM, ובדף ההדגמה יש CSS עוין (`button, a { all: unset }`, גופן בסיס קטן) כדי לוודא בידוד.
 - כל הבקרות בגודל 44x44 פיקסלים לפחות, המיקוד תמיד נראה, שינויים מוכרזים באזור `aria-live="polite"`, והדף שמאחורי החלון הופך ל־inert בזמן שהוא פתוח.
 

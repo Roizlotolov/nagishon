@@ -35,7 +35,7 @@ test.describe("controls", () => {
     });
   }
 
-  test("contrast buttons set data-nagish-contrast and aria-pressed", async ({ page }) => {
+  test("contrast buttons set data-nagishon-contrast and aria-pressed", async ({ page }) => {
     await page.goto("/");
     await openDialog(page);
     const dark = pressedButton(page, /כהה/).first();
@@ -44,14 +44,14 @@ test.describe("controls", () => {
 
     await dark.click();
     await expect(dark).toHaveAttribute("aria-pressed", "true");
-    await expect(page.locator("html")).toHaveAttribute("data-nagish-contrast", "dark");
+    await expect(page.locator("html")).toHaveAttribute("data-nagishon-contrast", "dark");
     await light.click();
     await expect(light).toHaveAttribute("aria-pressed", "true");
     await expect(dark).toHaveAttribute("aria-pressed", "false");
-    await expect(page.locator("html")).toHaveAttribute("data-nagish-contrast", "light");
+    await expect(page.locator("html")).toHaveAttribute("data-nagishon-contrast", "light");
     await none.click();
     await expect(none).toHaveAttribute("aria-pressed", "true");
-    await expect(page.locator("html")).toHaveAttribute("data-nagish-contrast", "none");
+    await expect(page.locator("html")).toHaveAttribute("data-nagishon-contrast", "none");
   });
 
   test("text size 150% scales a paragraph by 1.5x and 100% restores it exactly", async ({ page }) => {
@@ -65,11 +65,11 @@ test.describe("controls", () => {
     const p150 = pressedButton(page, "150%").first();
     await p150.click();
     await expect(p150).toHaveAttribute("aria-pressed", "true");
-    await expect(page.locator("html")).toHaveAttribute("data-nagish-text", "1.5");
+    await expect(page.locator("html")).toHaveAttribute("data-nagishon-text", "1.5");
     await expect.poll(size).toBeCloseTo(original * 1.5, 1);
 
     await pressedButton(page, "100%").first().click();
-    await expect(page.locator("html")).toHaveAttribute("data-nagish-text", "1");
+    await expect(page.locator("html")).toHaveAttribute("data-nagishon-text", "1");
     await expect.poll(size).toBe(original);
     await expect(para).not.toHaveAttribute("style", /font-size/);
   });
@@ -80,7 +80,7 @@ test.describe("controls", () => {
     await expect.poll(() => video.evaluate((v: HTMLVideoElement) => v.paused)).toBe(false);
     await openDialog(page);
     await switchByKey(page, "stopMotion").click();
-    await expect(page.locator("html")).toHaveAttribute("data-nagish-motion", "");
+    await expect(page.locator("html")).toHaveAttribute("data-nagishon-motion", "");
     await expect.poll(() => video.evaluate((v: HTMLVideoElement) => v.paused)).toBe(true);
   });
 
@@ -104,8 +104,8 @@ test.describe("controls", () => {
 
     await expect.poll(() => page.evaluate((k) => localStorage.getItem(k), STORAGE_KEY)).toBeNull();
     await expect.poll(() => presentBooleanAttrs(page)).toEqual([]);
-    expect(["none", null]).toContain(await htmlAttr(page, "data-nagish-contrast"));
-    expect(["1", null]).toContain(await htmlAttr(page, "data-nagish-text"));
+    expect(["none", null]).toContain(await htmlAttr(page, "data-nagishon-contrast"));
+    expect(["1", null]).toContain(await htmlAttr(page, "data-nagishon-text"));
     for (const key of KEYS) await expect(switchByKey(page, key)).toHaveAttribute("aria-checked", "false");
     await closeDialog(page);
   });

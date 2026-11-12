@@ -15,9 +15,9 @@ export function svgDataUri(svg: string): string {
 export function cursorCss(): string {
   const arrow = svgDataUri(ARROW_SVG);
   const pointer = svgDataUri(POINTER_SVG);
-  const not = ":not([data-nagish-root], [data-nagish-root] *)";
+  const not = ":not([data-nagishon-root], [data-nagishon-root] *)";
   return (
-    `html[data-nagish-cursor], html[data-nagish-cursor] *${not} { cursor: url("${arrow}") 4 3, auto !important; }\n` +
-    `html[data-nagish-cursor] :is(a[href], button, [role="button"], [role="link"], summary, label, select, input:is([type="button"], [type="submit"], [type="checkbox"], [type="radio"]))${not} { cursor: url("${pointer}") 18 4, pointer !important; }\n`
+    `html[data-nagishon-cursor], html[data-nagishon-cursor] *${not} { cursor: url("${arrow}") 4 3, auto !important; }\n` +
+    `html[data-nagishon-cursor] :is(a[href], button, [role="button"], [role="link"], summary, label, select, input:is([type="button"], [type="submit"], [type="checkbox"], [type="radio"]))${not} { cursor: url("${pointer}") 18 4, pointer !important; }\n`
   );
 }

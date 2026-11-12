@@ -18,6 +18,6 @@ export function runChunked<T>(
 }
 
 /** True when the element is part of the widget (or one of its helper nodes). */
-export function isNagishNode(el: Element): boolean {
-  return el.closest("[data-nagish-root]") !== null;
+export function isNagishonNode(el: Element): boolean {
+  return el.closest("[data-nagishon-root]") !== null;
 }

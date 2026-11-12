@@ -41,7 +41,7 @@ test.describe("keyboard", () => {
     await page.goto("/");
     await waitForWidget(page);
     await page.keyboard.press("Tab");
-    const skip = page.locator("a.nagish-skip");
+    const skip = page.locator("a.nagishon-skip");
     await expect(skip).toBeFocused();
     await expect(skip).toBeInViewport();
     await page.keyboard.press("Enter");

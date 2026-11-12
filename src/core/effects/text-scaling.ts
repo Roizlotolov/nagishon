@@ -12,7 +12,7 @@ interface Original {
   inlineLinePriority: string;
 }
 
-const MARK = "data-nagish-scaled";
+const MARK = "data-nagishon-scaled";
 const CHUNK = 500;
 const SKIP_TAGS = new Set(["SCRIPT", "STYLE", "NOSCRIPT", "TEMPLATE", "HEAD", "META", "LINK", "BR", "WBR"]);
 const FORM_TAGS = new Set(["INPUT", "TEXTAREA", "SELECT", "BUTTON"]);
@@ -42,7 +42,7 @@ function hasDirectText(el: Element): boolean {
 
 function isCandidate(el: Element): boolean {
   if (SKIP_TAGS.has(el.tagName)) return false;
-  if (el.closest("[data-nagish-root], svg")) return false;
+  if (el.closest("[data-nagishon-root], svg")) return false;
   return FORM_TAGS.has(el.tagName) || hasDirectText(el);
 }
 
@@ -163,7 +163,7 @@ function startObserver(): void {
   observer = new MutationObserver((records) => {
     for (const r of records) {
       r.addedNodes.forEach((n) => {
-        if (n instanceof Element && !n.closest("[data-nagish-root]")) pending.push(n);
+        if (n instanceof Element && !n.closest("[data-nagishon-root]")) pending.push(n);
       });
     }
     if (pending.length && flushTimer === null) flushTimer = setTimeout(flushPending, 0);
