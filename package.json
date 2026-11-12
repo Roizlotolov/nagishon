@@ -2,6 +2,27 @@
   "name": "nagishon",
   "version": "1.0.0",
   "description": "Free, MIT-licensed, framework-agnostic accessibility toolbar (תפריט נגישות), Hebrew/RTL-first.",
+  "keywords": [
+    "accessibility",
+    "a11y",
+    "toolbar",
+    "widget",
+    "hebrew",
+    "rtl",
+    "wcag",
+    "israel",
+    "5568",
+    "נגישות"
+  ],
+  "homepage": "https://nagishon-site.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zloto-labs/nagishon.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zloto-labs/nagishon/issues"
+  },
+  "author": "zloto-labs",
   "license": "MIT",
   "type": "module",
   "sideEffects": [
