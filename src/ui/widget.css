@@ -1,7 +1,7 @@
 /* nagishon widget (Shadow DOM). Logical properties only. */
 :host{
   all:initial;position:fixed;inset:0;pointer-events:none;z-index:var(--nagishon-z,2147483000);
-  display:block;font:1rem/1.5 system-ui,-apple-system,"Segoe UI",Heebo,Arial,sans-serif;
+  display:block;font:16px/1.5 system-ui,-apple-system,"Segoe UI",Heebo,Arial,sans-serif;
   --bg:var(--nagishon-u-bg,#fff);--surf:var(--nagishon-u-surf,#f4f5f8);--fg:var(--nagishon-u-fg,#111318);
   --mut:#5f6470;--bd:#d9dbe3;--ctl:#737885;--ac:var(--nagishon-u-accent,#0b57d0);--on:var(--nagishon-u-on,#fff);
   --r:var(--nagishon-u-radius,16px);--ls:48px;--tint:color-mix(in srgb,var(--fg) 6%,transparent);

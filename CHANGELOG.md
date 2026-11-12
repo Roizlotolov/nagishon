@@ -2,6 +2,8 @@
 
 ## 1.0.0 — 2026-11-12
 
+- Panel typography is a fixed 16px base so page-level root scaling (`textScaling: "root"`) does not resize the toolbar itself; browser zoom still applies.
+
 First release.
 
 - Redesigned toolbar UI: pill launcher with icon, segmented text-size and contrast controls, icon rows with switches, secondary reset button. New options `launcher.shape` (`pill`/`circle`), `launcher.size` (`md`/`lg`) and `theme.preset` (`auto`/`light`/`dark`), plus matching `data-*` attributes (`data-offset-block`, `data-offset-inline`, `data-launcher-shape`, `data-launcher-size`, `data-launcher-label`, `data-theme`, `data-background`, `data-foreground`, `data-radius`).
