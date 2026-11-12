@@ -135,7 +135,7 @@ All global effect rules MUST exclude the widget subtree (host element carries `d
 export interface NagishOptions {
   locale?: "he" | "en" | "ar" | "ru";      // default "he"; also accepts any string and falls back to "he"
   dir?: "rtl" | "ltr";                     // default derived from locale (he/ar => rtl)
-  position?: "start" | "end";              // inline side of the launcher; default "start" (visually left in RTL)
+  position?: "start" | "end";              // logical inline side of the launcher; default "start" (right edge in RTL, left in LTR)
   offset?: { block?: number; inline?: number }; // px from the viewport edges, default 20 / 20
   statementUrl?: string;                   // link "הצהרת נגישות"; if omitted, the link is not rendered (README strongly recommends it; reg 35ה)
   contactUrl?: string;                     // optional second link "דיווח על בעיית נגישות" (mailto:/tel:/https:)

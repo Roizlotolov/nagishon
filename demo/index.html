@@ -2,10 +2,303 @@
 <html lang="he" dir="rtl">
   <head>
     <meta charset="utf-8" />
+    <link rel="icon" href="data:," />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>nagish demo</title>
+    <title>סטודיו לדוגמה | דף הדגמה של nagish</title>
+    <meta name="description" content="דף הדגמה לתפריט הנגישות nagish. העסק והתוכן בדף הם דוגמה בלבד." />
+    <style>
+      /* Hostile host CSS: proves the widget (Shadow DOM) is isolated from the page. */
+      button,
+      a {
+        all: unset;
+      }
+      * {
+        box-sizing: content-box;
+      }
+      body {
+        font-size: 13px;
+      }
+
+      /* Page styles (re-applied after the hostile reset). */
+      :root {
+        --ink: #1a1a2e;
+        --muted: #4a4a5e;
+        --brand: #0b4aa8;
+        --soft: #eef3fb;
+      }
+      body {
+        margin: 0;
+        font-family: Arial, "Noto Sans Hebrew", sans-serif;
+        line-height: 1.6;
+        color: var(--ink);
+        background: #fff;
+      }
+      header,
+      main,
+      footer {
+        display: block;
+      }
+      .wrap {
+        max-width: 960px;
+        margin-inline: auto;
+        padding-inline: 20px;
+      }
+      header.site {
+        border-block-end: 1px solid #c9d3e6;
+        padding-block: 14px;
+      }
+      header.site .wrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .logo {
+        font-weight: 700;
+        font-size: 20px;
+        color: var(--brand);
+      }
+      nav ul {
+        display: flex;
+        gap: 20px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      a {
+        color: var(--brand);
+        text-decoration: underline;
+        cursor: pointer;
+      }
+      a:focus-visible,
+      button:focus-visible {
+        outline: 3px solid #0b4aa8;
+        outline-offset: 2px;
+      }
+      .hero {
+        background: var(--soft);
+        padding-block: 48px;
+      }
+      .hero .wrap {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: 1fr;
+        align-items: center;
+      }
+      @media (min-width: 720px) {
+        .hero .wrap {
+          grid-template-columns: 1.2fr 1fr;
+        }
+      }
+      h1 {
+        font-size: 36px;
+        line-height: 1.2;
+        margin: 0 0 12px;
+      }
+      h2 {
+        font-size: 26px;
+        margin-block: 32px 12px;
+      }
+      h3 {
+        font-size: 20px;
+        margin-block: 20px 8px;
+      }
+      p {
+        margin-block: 0 12px;
+        font-size: 16px;
+      }
+      .pulse {
+        display: inline-block;
+        padding-block: 8px;
+        padding-inline: 18px;
+        border-radius: 999px;
+        background: var(--brand);
+        color: #fff;
+        font-weight: 700;
+        animation: nagish-demo-pulse 1.6s ease-in-out infinite;
+      }
+      @keyframes nagish-demo-pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.08);
+        }
+      }
+      .media video {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        background: #0b4aa8;
+      }
+      .cards {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+      .card {
+        border: 1px solid #c9d3e6;
+        border-radius: 8px;
+        padding: 16px;
+      }
+      .card img,
+      .card svg {
+        width: 64px;
+        height: 64px;
+      }
+      form {
+        display: grid;
+        gap: 12px;
+        max-width: 420px;
+      }
+      label {
+        display: block;
+        font-size: 16px;
+        font-weight: 700;
+        margin-block-end: 4px;
+      }
+      input,
+      textarea {
+        box-sizing: border-box;
+        width: 100%;
+        font: inherit;
+        font-size: 16px;
+        padding: 8px 10px;
+        border: 2px solid #5b6477;
+        border-radius: 6px;
+        background: #fff;
+        color: var(--ink);
+      }
+      button.submit {
+        display: inline-block;
+        font-size: 16px;
+        font-weight: 700;
+        padding-block: 10px;
+        padding-inline: 24px;
+        border-radius: 6px;
+        background: var(--brand);
+        color: #fff;
+        cursor: pointer;
+        text-align: center;
+      }
+      footer.site {
+        margin-block-start: 48px;
+        padding-block: 24px;
+        background: #1a1a2e;
+        color: #fff;
+      }
+      footer.site a {
+        color: #fff;
+      }
+    </style>
   </head>
   <body>
-    <main id="main"><h1>nagish</h1></main>
+    <header class="site">
+      <div class="wrap">
+        <span class="logo">סטודיו לדוגמה</span>
+        <nav aria-label="ניווט ראשי">
+          <ul>
+            <li><a href="#services">שירותים</a></li>
+            <li><a href="#about">אודות</a></li>
+            <li><a href="#contact">יצירת קשר</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero">
+        <div class="wrap">
+          <div>
+            <h1>עסק לדוגמה: שירות מקצועי, אנושי ונגיש</h1>
+            <p>
+              זהו דף הדגמה של תפריט הנגישות nagish. העסק, השירותים והטקסטים כאן הם דוגמה בלבד ואינם מתארים עסק אמיתי.
+              פתחו את כפתור «נגישות» והתאימו את התצוגה: גודל טקסט, ניגודיות, ריווח ועוד.
+            </p>
+            <p><span class="pulse">קביעת פגישה</span></p>
+          </div>
+          <div class="media">
+            <video muted autoplay loop playsinline aria-label="סרטון הדגמה מונפש, ללא קול">
+              <source src="/promo.webm" type="video/webm" />
+              <track
+                kind="captions"
+                srclang="he"
+                label="עברית"
+                src="data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00%3A00.000%20--%3E%2000%3A00%3A02.000%0A%D7%A1%D7%A8%D7%98%D7%95%D7%9F%20%D7%94%D7%93%D7%92%D7%9E%D7%94%20%D7%9C%D7%9C%D7%90%20%D7%A7%D7%95%D7%9C"
+              />
+            </video>
+          </div>
+        </div>
+      </section>
+
+      <div class="wrap">
+        <h2 id="services">השירותים שלנו</h2>
+        <p>
+          בדף הזה יש כותרות בכמה רמות, קישורים, תמונות, וטופס עם תוויות, כדי שיהיה על מה להפעיל את ההתאמות. לצורך הבדיקה
+          יש כאן גם <a href="#about">קישור בתוך פסקה</a> וגם טקסט רגיל לצידו.
+        </p>
+        <div class="cards">
+          <article class="card">
+            <img
+              alt="איור של לוח שנה עם סימון בצבע כחול"
+              src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='10' width='52' height='46' rx='6' fill='%230b4aa8'/%3E%3Crect x='6' y='10' width='52' height='12' rx='6' fill='%231a1a2e'/%3E%3Crect x='16' y='30' width='10' height='8' fill='%23fff'/%3E%3Crect x='30' y='30' width='10' height='8' fill='%23fff'/%3E%3Crect x='44' y='30' width='8' height='8' fill='%23fff'/%3E%3C/svg%3E"
+            />
+            <h3>ייעוץ ראשוני</h3>
+            <p>שיחת היכרות קצרה כדי להבין מה אתם צריכים. טקסט לדוגמה בלבד.</p>
+          </article>
+          <article class="card">
+            <img
+              alt=""
+              src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='26' fill='%23ffd166'/%3E%3Ccircle cx='32' cy='32' r='12' fill='%230b4aa8'/%3E%3C/svg%3E"
+            />
+            <h3>ליווי שוטף</h3>
+            <p>תמונה קישוטית עם alt ריק מופיעה כאן, כדי לבדוק התנהגות מול קוראי מסך.</p>
+          </article>
+          <article class="card">
+            <h3>תמיכה</h3>
+            <p>
+              קראו עוד ב<a href="/statement.html">הצהרת הנגישות</a> או ב<a href="/en.html">גרסה האנגלית</a> של הדמו.
+            </p>
+          </article>
+        </div>
+
+        <h2 id="about">אודות</h2>
+        <p>
+          זה עסק לדוגמה. כל הפרטים כאן הם מציין מקום. אנחנו משתמשים בדף הזה כדי לבדוק שהתפריט עובד גם כשסגנונות הדף
+          עוינים: לכפתורים ולקישורים יש כאן איפוס מלא, ולגוף הדף גופן קטן.
+        </p>
+        <h3>איך בודקים</h3>
+        <p>הפעילו כל התאמה ובדקו שהדף נשאר שמיש. הבחירות נשמרות בדפדפן בלבד.</p>
+
+        <h2 id="contact">יצירת קשר</h2>
+        <form action="#" onsubmit="return false">
+          <div>
+            <label for="f-name">שם מלא</label>
+            <input id="f-name" name="name" type="text" autocomplete="name" />
+          </div>
+          <div>
+            <label for="f-email">דוא"ל</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" />
+          </div>
+          <div>
+            <label for="f-msg">הודעה</label>
+            <textarea id="f-msg" name="message" rows="3"></textarea>
+          </div>
+          <div><button type="submit" class="submit">שליחה</button></div>
+        </form>
+      </div>
+    </main>
+
+    <footer class="site">
+      <div class="wrap">
+        <p>© עסק לדוגמה. דף הדגמה בלבד.</p>
+        <p><a href="/statement.html">הצהרת נגישות</a></p>
+      </div>
+    </footer>
+
+    <script type="module" src="./main.ts"></script>
   </body>
 </html>

@@ -1,4 +1,7 @@
+import { readFileSync } from "node:fs";
 import { defineConfig } from "tsup";
+
+const { version } = JSON.parse(readFileSync("package.json", "utf8")) as { version: string };
 
 const common = {
   target: "es2020",
@@ -37,6 +40,7 @@ export default defineConfig([
     entry: { "nagish.iife": "src/iife.ts" },
     format: ["iife"],
     globalName: "Nagish",
+    define: { __NAGISH_VERSION__: JSON.stringify(version) },
     minify: true,
     outExtension: () => ({ js: ".js" }),
   },

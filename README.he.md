@@ -1,0 +1,215 @@
+<div dir="rtl">
+
+# nagish (נגיש)
+
+[![CI](https://github.com/zloto-labs/nagish/actions/workflows/ci.yml/badge.svg)](https://github.com/zloto-labs/nagish/actions/workflows/ci.yml)
+[![גרסת npm](https://img.shields.io/npm/v/nagish.svg)](https://www.npmjs.com/package/nagish)
+[![גודל](https://img.shields.io/bundlephobia/minzip/nagish)](https://bundlephobia.com/package/nagish)
+[![רישיון: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+תפריט נגישות חינמי בקוד פתוח (MIT) לאתרים, בעברית ומימין לשמאל כברירת מחדל. כתוב ב־TypeScript ללא תלויות זמן ריצה, ללא בקשות רשת וללא עוגיות. [English README](README.md).
+
+## מה זה, ומה זה לא
+
+**מה זה:** כפתור «נגישות» שמבקרים פותחים כדי להתאים את האתר לצורכיהם: גודל טקסט (100%–200%), ניגודיות כהה או בהירה, גווני אפור, הדגשת קישורים וכותרות, גופן קריא, ריווח טקסט לפי WCAG 1.4.12, עצירת תנועה, סמן גדול וסרגל קריאה. הבחירות נשמרות בדפדפן של המבקר (`localStorage`) ולא נשלחות לשום מקום. התפריט גם מקשר להצהרת הנגישות שלכם ולערוץ פנייה.
+
+**מה זה לא:** זה לא דרך להפוך אתר לעומד בדרישות. תפריט לא יכול לתקן טקסט חלופי חסר, שדות טופס בלי תווית, מבנה כותרות שבור, מלכודות מקלדת או עיצוב בניגודיות נמוכה, והוא לא מחליף עמידה של האתר עצמו בתקן הישראלי ת"י 5568 (המבוסס על WCAG). התקנת התפריט לבדה אינה מקיימת את תקנות שוויון זכויות לאנשים עם מוגבלות. ראו בו שכבת נוחות מעל אתר נגיש.
+
+- רקע משפטי (בעברית, לא ייעוץ משפטי): [docs/research/israel-accessibility-law.he.md](docs/research/israel-accessibility-law.he.md)
+- מה בעל האתר עדיין צריך לעשות: [docs/compliance-checklist.he.md](docs/compliance-checklist.he.md)
+- תבנית הצהרת נגישות: [docs/accessibility-statement-template.he.md](docs/accessibility-statement-template.he.md)
+
+## התקנה ב־30 שניות
+
+הוסיפו שורה אחת לפני `</body>`:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/nagish@1/dist/nagish.iife.js" defer data-nagish data-statement-url="/accessibility"></script>
+```
+
+אופציונלי, מונע הבהוב של ההגדרות השמורות בביקורים חוזרים. הדביקו **בתוך `<head>`**, בלי `defer` ובלי `async`. הסקריפט מחיל את ההגדרות השמורות לפני הציור הראשון:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/nagish@1/dist/prepaint.js"></script>
+```
+
+מאפייני data שתג הסקריפט מכיר: `data-locale`, `data-position`, `data-statement-url`, `data-contact-url`, `data-hotkey`, `data-text-scaling`, `data-skip-link` (סלקטור, למשל `#main`), `data-accent`, `data-z-index`, `data-features` (רשימה מופרדת בפסיקים של התכונות היחידות להפעלה, למשל `textScale,contrast`), ו־`data-nagish-manual` כדי לדלג על אתחול אוטומטי ולקרוא ל־`Nagish.init()` בעצמכם.
+
+```html
+<script>
+  Nagish.init({ locale: "he", statementUrl: "/accessibility", skipLink: { target: "#main" } });
+</script>
+```
+
+## npm / ESM
+
+```bash
+npm install nagish
+```
+
+```ts
+import { init } from "nagish";
+
+const nagish = init({
+  statementUrl: "/accessibility",
+  contactUrl: "mailto:accessibility@your-domain.example",
+  skipLink: { target: "#main" },
+});
+```
+
+`init()` אידמפוטנטי: קריאה שנייה מחזירה את המופע הקיים. קראו ל־`nagish.destroy()` כדי להסיר אותו.
+
+## Next.js (App Router)
+
+```tsx
+// app/layout.tsx
+import { NAGISH_PREPAINT } from "nagish/prepaint";
+import { NagishWidget } from "nagish/react";
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="he" dir="rtl">
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: NAGISH_PREPAINT }} />
+      </head>
+      <body>
+        {children}
+        <NagishWidget statementUrl="/accessibility" />
+      </body>
+    </html>
+  );
+}
+```
+
+ב־`nagish/react` כבר מופיע `"use client"`, ולכן אפשר לייבא אותו מתוך Server Component. הרכיב לא מציג דבר בשרת ומתעגן אחרי ההידרציה. סקריפט ה־pre-paint מוסיף מאפייני `data-nagish-*` ל־`<html>` לפני ההידרציה, ולכן מומלץ להוסיף `suppressHydrationWarning` ל־`<html>`.
+
+## React / Vite
+
+```tsx
+import { NagishWidget, useNagish } from "nagish/react";
+
+export function App() {
+  return (
+    <>
+      <NagishWidget statementUrl="/accessibility" skipLink={{ target: "#main" }} />
+      <main id="main">...</main>
+      <OpenButton />
+    </>
+  );
+}
+
+function OpenButton() {
+  const { state, open } = useNagish();
+  return <button onClick={open}>נגישות (טקסט {state.textScale * 100}%)</button>;
+}
+```
+
+`useNagish()` מחזיר `{ state, set, setState, reset, open, close, instance }`, בטוח ל־SSR ומאזין לאירוע `change` של המופע. כדי להשתמש בכפתור משלכם, רנדרו `<NagishWidget launcher={{ hidden: true }} />` וקראו ל־`open()`.
+
+## אפשרויות
+
+| אפשרות | טיפוס | ברירת מחדל | תיאור |
+|---|---|---|---|
+| `locale` | `"he" \| "en" \| "ar" \| "ru"` (כל מחרוזת אחרת חוזרת ל־`"he"`) | `"he"` | שפת הממשק. |
+| `dir` | `"rtl" \| "ltr"` | לפי השפה (`he`, `ar` הן RTL) | כיוון הטקסט בתפריט. |
+| `position` | `"start" \| "end"` | `"start"` | הצד הלוגי של הכפתור: `start` הוא הצד הימני בדף עברי (RTL) והשמאלי בדף LTR. |
+| `offset` | `{ block?: number; inline?: number }` | `{ block: 20, inline: 20 }` | מרחק בפיקסלים מקצוות החלון. |
+| `statementUrl` | `string` | אין | קישור «הצהרת נגישות». אם לא מוגדר, הקישור לא מוצג. מומלץ מאוד (תקנה 35ה). |
+| `contactUrl` | `string` | אין | קישור אופציונלי «דיווח על בעיית נגישות» (`mailto:`, `tel:` או `https:`). |
+| `hotkey` | `string \| false` | `"Alt+Shift+A"` | קיצור לפתיחה וסגירה, בפורמט `Mod+Key` כש־Mod הוא `Alt`, `Ctrl`, `Shift` או `Meta`, מחוברים ב־`+`. `false` מכבה אותו. |
+| `textScaling` | `"elements" \| "root"` | `"elements"` | אסטרטגיית הגדלת הטקסט, ראו בהמשך. |
+| `skipLink` | `{ target: string; label?: string } \| false` | `false` | מוסיף קישור «דילוג לתוכן המרכזי» כאלמנט הראשון ב־`<body>`. |
+| `features` | `Partial<Record<keyof NagishState, boolean>>` | הכול `true` | הסתרת בקרות בודדות, למשל `{ bigCursor: false }`. |
+| `theme` | `Partial<{ accent: string; background: string; foreground: string; radius: string; zIndex: number }>` | ערכת נושא בהירה/כהה מובנית | התאמות ויזואליות, ראו «עיצוב». |
+| `launcher` | `{ label?: string; showText?: boolean; hidden?: boolean }` | `{ showText: true, hidden: false }` | `hidden: true` מסיר את הכפתור המובנה וקוראים ל־`open()` בעצמכם. `showText: false` מציג אייקון בלבד (השם הנגיש מגיע מ־`label`). |
+| `initialState` | `Partial<NagishState>` | אין | מוחל רק כשאין למבקר מצב שמור. |
+| `storageKey` | `string` | `"nagish:v1"` | מפתח ב־`localStorage`. אם שיניתם אותו, העבירו את אותו מפתח לסקריפט ה־pre-paint (`prepaintScript(key)` מתוך `nagish/prepaint`). |
+| `onChange` | `(state: NagishState) => void` | אין | נקרא אחרי כל שינוי. |
+
+מפתחות המצב: `textScale` (‏1, 1.25, 1.5, 1.75, 2), `contrast` (‏`"none" | "dark" | "light"`), ‏`grayscale`, ‏`underlineLinks`, ‏`highlightHeadings`, ‏`readableFont`, ‏`textSpacing`, ‏`stopMotion`, ‏`bigCursor`, ‏`readingGuide` (בוליאניים). סרגל הקריאה מוצע במכשירי הצבעה (עכבר) בלבד.
+
+## API של המופע
+
+```ts
+const nagish = init();
+nagish.open(); nagish.close(); nagish.toggle();
+nagish.getState();                    // NagishState
+nagish.set("contrast", "dark");       // מפתח אחד
+nagish.setState({ textScale: 1.5, underlineLinks: true });
+nagish.reset();                       // חזרה לברירות מחדל, מפתח האחסון נמחק
+const off = nagish.on("change", (state) => console.log(state)); // וגם "open" ו־"close"
+off();
+nagish.destroy();                     // מסיר DOM, מאזינים ו־observers; האחסון נשאר
+```
+
+`get()` מחזיר את המופע הנוכחי או `null`. בגרסת תג הסקריפט אותן פונקציות זמינות ב־`window.Nagish` (‏`init`, ‏`get`, ‏`version`).
+
+## אירועים
+
+התפריט שולח אירועים על `window`:
+
+- `nagish:ready`: אחרי האתחול.
+- `nagish:change`: בכל שינוי מצב, והמצב ב־`event.detail`.
+
+```js
+window.addEventListener("nagish:change", (e) => console.log(e.detail.textScale));
+```
+
+## עיצוב
+
+העבירו את האפשרות `theme`; הערכים הם ערכי CSS רגילים.
+
+```ts
+init({ theme: { accent: "#0b4aa8", radius: "8px", zIndex: 10000 } });
+```
+
+שימו לב לניגודיות: טקסט על צבע ה־`accent` וה־`background` שלכם צריך להגיע ל־4.5:1, וגבולות רכיבי ממשק ל־3:1. התפריט עובר אוטומטית לגרסה כהה לפי `prefers-color-scheme: dark`, ולצבעי שחור/לבן/צהוב מפורשים כשהדף במצב ניגודיות גבוהה.
+
+## גודל טקסט: בחירת אסטרטגיה
+
+| אסטרטגיה | איך זה עובד | מתאים ל | פשרות |
+|---|---|---|---|
+| `elements` (ברירת מחדל) | קוראת פעם אחת את `font-size` המחושב של כל אלמנט טקסט ומציבה inline גודל מוגדל (וגם `line-height` בפיקסלים). `MutationObserver` מגדיל תוכן שנוסף מאוחר יותר. ב־100% הערכים המקוריים משוחזרים. | אתרים עם px או יחידות מעורבות, בוני דפים, וכל אתר שבסיס הפריסה בו אינו גודל השורש. | נוגעת באלמנטים רבים (העבודה מחולקת למקטעים כדי למנוע תקיעות); `font-size` inline גובר על ה־CSS שלכם כל עוד ההגדלה פעילה. |
+| `root` | מציבה גודל מוגדל על `html`. | אתרים שבנויים ב־`rem`/`em`. הכי זולה והכי נקייה. | לא משפיעה על טקסט שהוגדר בפיקסלים. |
+
+חלון התפריט נמצא ב־Shadow DOM, אינו מוגדל על ידי אף אסטרטגיה, ומכבד זום של הדפדפן.
+
+עוד הערה: מצב גווני האפור משתמש ב־`filter: grayscale(1)` על `<html>`. `filter` על השורש יוצר בלוק מכיל לצאצאים עם `position: fixed`, ובאתרים מסוימים זה עלול להזיז אלמנטים קבועים. אם זה רלוונטי לאתר שלכם, הסתירו את הבקרה עם `features: { grayscale: false }`.
+
+## פרטיות
+
+אין בקשות רשת, אין עוגיות, אין אנליטיקס ואין גופנים חיצוניים. האחסון היחיד הוא `localStorage` תחת `nagish:v1` (נמחק כשההגדרות חוזרות לברירת המחדל). ההגדרות מסתנכרנות בין לשוניות של אותו origin דרך אירוע `storage`.
+
+## הנגישות של התפריט עצמו
+
+התפריט נבנה לעמוד ב־WCAG 2.1 AA, וזה נבדק אוטומטית ולא רק מוצהר:
+
+- axe-core (תגיות `wcag2a`, ‏`wcag2aa`, ‏`wcag21a`, ‏`wcag21aa`) רץ ב־Playwright על דף ההדגמה כשהחלון סגור, פתוח, פתוח כשהדף בניגודיות כהה, ובשפה האנגלית (LTR).
+- בדיקות מקלדת מתוסרטות: Tab מגיע לכפתור, Enter פותח, המיקוד עובר לכותרת החלון, Tab ו־Shift+Tab נשארים בתוך החלון, Escape סוגר ומחזיר מיקוד, קיצור `Alt+Shift+A` וקישור הדילוג.
+- בדיקות שכל בקרה משנה את מאפיין `data-nagish-*` ואת מצב `aria-checked`/`aria-pressed`, שהגדרות נשמרות לפני הציור הראשון, ושאיפוס מנקה הכול.
+- התפריט מוצג ב־Shadow DOM, ובדף ההדגמה יש CSS עוין (`button, a { all: unset }`, גופן בסיס קטן) כדי לוודא בידוד.
+- כל הבקרות בגודל 44x44 פיקסלים לפחות, המיקוד תמיד נראה, שינויים מוכרזים באזור `aria-live="polite"`, והדף שמאחורי החלון הופך ל־inert בזמן שהוא פתוח.
+
+בדיקות אוטומטיות לא מוצאות הכול. אם נתקלתם בבעיה עם קורא מסך או טכנולוגיה מסייעת אחרת, פתחו issue.
+
+## הערות לגבי חוק הנגישות בישראל
+
+ההערות כאן הן תקציר ולא ייעוץ משפטי; המקורות ב[מסמך המחקר](docs/research/israel-accessibility-law.he.md).
+
+- **הצהרת נגישות (תקנה 35ה):** חובה לפרסם את ההצהרה במקום בולט באתר. קשרו אליה מהכותרת התחתונה בכל דף, והעבירו `statementUrl` כדי שגם התפריט יקשר אליה. תבנית למילוי: [docs/accessibility-statement-template.he.md](docs/accessibility-statement-template.he.md). כתבו רק עובדות נכונות ואל תטענו לבדיקה שלא בוצעה.
+- **ערוץ פנייה ו־60 הימים לתיקון (35א(ד)):** הציבו דרך עובדת לדווח על חלק לא נגיש באתר (העבירו `contactUrl`) וטפלו בדיווחים. סטייה מהתקן אינה נחשבת בדרך כלל להפרה אלא אם נשלחה הודעה והיא לא תוקנה תוך 60 יום, ובינתיים יש להציע דרך חלופית לקבל את השירות.
+- **כל השאר נמצא באתר עצמו:** עברו על [docs/compliance-checklist.he.md](docs/compliance-checklist.he.md) (טקסט חלופי, תוויות, מבנה כותרות, גישה מהמקלדת, ניגודיות, כתוביות כשנדרש, בדיקה תקופתית).
+
+## תמיכה בדפדפנים
+
+שתי הגרסאות האחרונות של Chrome, Edge, Firefox ו־Safari (דסקטופ), ו־Safari ב־iOS 16 ומעלה. אין תמיכה ב־Internet Explorer.
+
+## תרומה
+
+ראו [CONTRIBUTING.md](CONTRIBUTING.md). בקצרה: Node 24, הריצו `npm run check && npm run test:e2e`, השתמשו במאפייני CSS לוגיים בלבד, וכתבו עברית בלשון רבים ניטרלית מגדר. דיווח על בעיות אבטחה: [SECURITY.md](SECURITY.md). הערות גרסה: [CHANGELOG.md](CHANGELOG.md).
+
+## רישיון
+
+[MIT](LICENSE) © 2026 zloto-labs
+
+</div>
