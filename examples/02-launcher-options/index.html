@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>nagishon: אפשרויות כפתור</title>
+    <style>
+      :root { --ink: #1a1a2e; --muted: #4a4a5e; --brand: #0b4aa8; --soft: #eef3fb; }
+      body { margin: 0; font-family: Arial, "Noto Sans Hebrew", sans-serif; line-height: 1.7; color: var(--ink); background: #fff; }
+      .wrap { max-width: 44rem; margin-inline: auto; padding-inline: 1.25rem; }
+      header, footer { padding-block: 1rem; background: var(--soft); }
+      main { padding-block: 1.5rem; }
+      h1 { font-size: 1.75rem; margin-block: 0 0.75rem; }
+      a { color: var(--brand); }
+      pre { background: var(--soft); padding: 0.75rem 1rem; overflow-x: auto; direction: ltr; text-align: start; }
+      button { font: inherit; color: #fff; background: var(--brand); border: 0; border-radius: 6px; padding: 0.5rem 1rem; cursor: pointer; }
+      a:focus-visible, button:focus-visible { outline: 3px solid #0b4aa8; outline-offset: 3px; }
+    </style>
+    <!-- Pre-paint: סינכרוני, בלי defer/async, מחיל את ההגדרות השמורות לפני הציור הראשון -->
+    <script src="https://cdn.jsdelivr.net/npm/nagishon@1/dist/prepaint.js"></script>
+  </head>
+  <body>
+    <header><div class="wrap"><strong>דוגמה: אתר קטן</strong></div></header>
+    <main id="main" tabindex="-1">
+      <div class="wrap">
+        <h1>אפשרויות הכפתור הצף</h1>
+        <p>בחרו וריאנט. הדף מפעיל מחדש את התפריט עם <code>destroy()</code> ואז <code>init()</code>.</p>
+        <p id="strip" role="group" aria-label="וריאנטים">
+          <button type="button" data-v="default">ברירת מחדל</button>
+          <button type="button" data-v="circle">עיגול גדול בצד הנגדי</button>
+          <button type="button" data-v="outline">סמל קווי וסגנון ניטרלי</button>
+          <button type="button" data-v="dark">ערכה כהה וצבע מבטא</button>
+        </p>
+        <h2>האפשרויות הנוכחיות</h2>
+        <pre id="code" aria-live="polite"></pre>
+      </div>
+    </main>
+    <footer><div class="wrap">דף הדגמה, התוכן לדוגמה בלבד.</div></footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/nagishon@1/dist/nagishon.iife.js" defer data-nagishon-manual></script>
+    <script>
+      var variants = {
+        default: { position: "start", offset: { block: 20, inline: 20 }, launcher: { shape: "pill", size: "md", icon: "solid", style: "accent" } },
+        circle: { position: "end", offset: { block: 32, inline: 24 }, launcher: { shape: "circle", size: "lg" } },
+        outline: { launcher: { shape: "circle", icon: "outline", style: "neutral" } },
+        dark: { theme: { preset: "dark", accent: "#ffd23f" } }
+      };
+      function apply(name) {
+        var opts = Object.assign({ statementUrl: "#main", skipLink: { target: "#main" } }, variants[name]);
+        var current = Nagishon.get();
+        if (current) current.destroy();
+        Nagishon.init(opts);
+        document.getElementById("code").textContent = "Nagishon.init(" + JSON.stringify(variants[name], null, 2) + ");";
+      }
+      window.addEventListener("load", function () {
+        document.getElementById("strip").addEventListener("click", function (e) {
+          var b = e.target.closest("button[data-v]");
+          if (b) apply(b.getAttribute("data-v"));
+        });
+        apply("default");
+      });
+    </script>
+  </body>
+</html>

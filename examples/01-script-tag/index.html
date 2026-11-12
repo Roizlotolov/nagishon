@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>nagishon: התקנה בתג סקריפט אחד</title>
+    <style>
+      :root { --ink: #1a1a2e; --muted: #4a4a5e; --brand: #0b4aa8; --soft: #eef3fb; }
+      body { margin: 0; font-family: Arial, "Noto Sans Hebrew", sans-serif; line-height: 1.7; color: var(--ink); background: #fff; }
+      .wrap { max-width: 44rem; margin-inline: auto; padding-inline: 1.25rem; }
+      header, footer { padding-block: 1rem; background: var(--soft); }
+      main { padding-block: 1.5rem; }
+      h1 { font-size: 1.75rem; margin-block: 0 0.75rem; }
+      a { color: var(--brand); }
+      pre { background: var(--soft); padding: 0.75rem 1rem; overflow-x: auto; direction: ltr; text-align: start; }
+      button { font: inherit; color: #fff; background: var(--brand); border: 0; border-radius: 6px; padding: 0.5rem 1rem; cursor: pointer; }
+      a:focus-visible, button:focus-visible { outline: 3px solid #0b4aa8; outline-offset: 3px; }
+    </style>
+    <!-- Pre-paint: סינכרוני, בלי defer/async, מחיל את ההגדרות השמורות לפני הציור הראשון -->
+    <script src="https://cdn.jsdelivr.net/npm/nagishon@1/dist/prepaint.js"></script>
+  </head>
+  <body>
+    <header><div class="wrap"><strong>דוגמה: אתר קטן</strong></div></header>
+    <main id="main" tabindex="-1">
+      <div class="wrap">
+        <h1>התקנה בתג סקריפט אחד</h1>
+        <p>בדף הזה יש רק שני תגי סקריפט: אחד ב־head (הצגה מוקדמת של ההגדרות השמורות) ואחד לפני סגירת body. פתחו את תפריט הנגישות בכפתור הצף, או בקיצור Alt+Shift+A.</p>
+        <p>הקישור "הצהרת נגישות" בתפריט מוביל אל <a href="#statement">הסעיף שבתחתית הדף</a>.</p>
+      </div>
+    </main>
+    <section id="statement" aria-labelledby="statement-title">
+      <div class="wrap">
+        <h2 id="statement-title">הצהרת נגישות</h2>
+        <p>כאן מופיע נוסח הצהרת הנגישות של האתר. זהו מקום שמור לדוגמה בלבד.</p>
+      </div>
+    </section>
+    <footer><div class="wrap">דף הדגמה, התוכן לדוגמה בלבד.</div></footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/nagishon@1/dist/nagishon.iife.js" defer data-nagishon data-statement-url="#statement"></script>
+  </body>
+</html>

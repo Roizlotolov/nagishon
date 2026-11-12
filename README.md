@@ -225,6 +225,10 @@ These notes are a summary, not legal advice; see [the research document](docs/re
 
 The last 2 versions of Chrome, Edge, Firefox and Safari (desktop), and Safari on iOS 16 and later. No Internet Explorer.
 
+## Examples / דוגמאות
+
+Runnable examples (script tag, options, Next.js, React/Vite, WordPress, custom button, features subset, events): [examples/](examples/README.md).
+
 ## Disclaimer
 
 nagishon is a free public service, provided **as is**, without warranty of any kind and without any support or response obligation (see the MIT licence). Using it is your choice and your responsibility; it is not legal advice and does not make a site compliant with any law or standard. There is no contact channel for the maintainer besides the public GitHub issue tracker, which is read on a best-effort basis.

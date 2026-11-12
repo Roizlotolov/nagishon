@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>nagishon: כפתור נגישות משלכם</title>
+    <style>
+      :root { --ink: #1a1a2e; --muted: #4a4a5e; --brand: #0b4aa8; --soft: #eef3fb; }
+      body { margin: 0; font-family: Arial, "Noto Sans Hebrew", sans-serif; line-height: 1.7; color: var(--ink); background: #fff; }
+      .wrap { max-width: 44rem; margin-inline: auto; padding-inline: 1.25rem; }
+      header, footer { padding-block: 1rem; background: var(--soft); }
+      main { padding-block: 1.5rem; }
+      h1 { font-size: 1.75rem; margin-block: 0 0.75rem; }
+      a { color: var(--brand); }
+      pre { background: var(--soft); padding: 0.75rem 1rem; overflow-x: auto; direction: ltr; text-align: start; }
+      button { font: inherit; color: #fff; background: var(--brand); border: 0; border-radius: 6px; padding: 0.5rem 1rem; cursor: pointer; }
+      a:focus-visible, button:focus-visible { outline: 3px solid #0b4aa8; outline-offset: 3px; }
+    </style>
+    <!-- Pre-paint: סינכרוני, בלי defer/async, מחיל את ההגדרות השמורות לפני הציור הראשון -->
+    <script src="https://cdn.jsdelivr.net/npm/nagishon@1/dist/prepaint.js"></script>
+  </head>
+  <body>
+    <header><div class="wrap"><strong>דוגמה: אתר קטן</strong></div></header>
+    <main id="main" tabindex="-1">
+      <div class="wrap">
+        <h1>כפתור נגישות משלכם</h1>
+        <p>הכפתור הצף מוסתר (<code>launcher.hidden</code>). הקישור "נגישות" בתחתית הדף פותח את התפריט דרך <code>Nagishon.get().open()</code>.</p>
+        <p>נסו: עברו עם Tab אל הקישור שבתחתית, הקישו Enter, ואז Escape. המיקוד חוזר אל הקישור שפתח את התפריט.</p>
+      </div>
+    </main>
+    <footer>
+      <div class="wrap">
+        <a href="#" id="a11y-open" aria-haspopup="dialog">נגישות</a>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/nagishon@1/dist/nagishon.iife.js" defer data-nagishon data-nagishon-manual></script>
+    <script>
+      window.addEventListener("load", function () {
+        Nagishon.init({ launcher: { hidden: true }, statementUrl: "#main", skipLink: { target: "#main" } });
+        var link = document.getElementById("a11y-open");
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          link.focus(); // בחלק מהדפדפנים לחיצה על קישור לא ממקדת אותו; כך המיקוד יחזור אליו
+          Nagishon.get().open();
+        });
+      });
+    </script>
+  </body>
+</html>

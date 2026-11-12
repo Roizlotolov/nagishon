@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>nagishon: אירועים ומצב</title>
+    <style>
+      :root { --ink: #1a1a2e; --muted: #4a4a5e; --brand: #0b4aa8; --soft: #eef3fb; }
+      body { margin: 0; font-family: Arial, "Noto Sans Hebrew", sans-serif; line-height: 1.7; color: var(--ink); background: #fff; }
+      .wrap { max-width: 44rem; margin-inline: auto; padding-inline: 1.25rem; }
+      header, footer { padding-block: 1rem; background: var(--soft); }
+      main { padding-block: 1.5rem; }
+      h1 { font-size: 1.75rem; margin-block: 0 0.75rem; }
+      a { color: var(--brand); }
+      pre { background: var(--soft); padding: 0.75rem 1rem; overflow-x: auto; direction: ltr; text-align: start; }
+      button { font: inherit; color: #fff; background: var(--brand); border: 0; border-radius: 6px; padding: 0.5rem 1rem; cursor: pointer; }
+      a:focus-visible, button:focus-visible { outline: 3px solid #0b4aa8; outline-offset: 3px; }
+    </style>
+    <!-- Pre-paint: סינכרוני, בלי defer/async, מחיל את ההגדרות השמורות לפני הציור הראשון -->
+    <script src="https://cdn.jsdelivr.net/npm/nagishon@1/dist/prepaint.js"></script>
+  </head>
+  <body>
+    <header><div class="wrap"><strong>דוגמה: אתר קטן</strong></div></header>
+    <main id="main" tabindex="-1">
+      <div class="wrap">
+        <h1>אירועים ומצב</h1>
+        <p>הדף מאזין ל־<code>nagishon:ready</code> ול־<code>nagishon:change</code> ומציג את המצב. הכפתורים משתמשים ב־<code>setState</code> וב־<code>reset</code>.</p>
+        <p>
+          <button type="button" id="big">הגדלת טקסט ל־150%</button>
+          <button type="button" id="dark">ניגודיות כהה</button>
+          <button type="button" id="reset">איפוס</button>
+        </p>
+        <h2>יומן אירועים</h2>
+        <pre id="log" aria-live="polite">ממתינים לטעינת התפריט…</pre>
+      </div>
+    </main>
+    <footer><div class="wrap">דף הדגמה, התוכן לדוגמה בלבד.</div></footer>
+
+    <script>
+      // מאזינים נרשמים לפני שהסקריפט (defer) רץ, כדי לא לפספס את nagishon:ready
+      var log = document.getElementById("log");
+      function show(name, state) { log.textContent = name + "\n" + JSON.stringify(state, null, 2); }
+      window.addEventListener("nagishon:ready", function (e) { show("nagishon:ready", e.detail); });
+      window.addEventListener("nagishon:change", function (e) { show("nagishon:change", e.detail); });
+      document.getElementById("big").addEventListener("click", function () { Nagishon.get().setState({ textScale: 1.5 }); });
+      document.getElementById("dark").addEventListener("click", function () { Nagishon.get().setState({ contrast: "dark" }); });
+      document.getElementById("reset").addEventListener("click", function () { Nagishon.get().reset(); });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/nagishon@1/dist/nagishon.iife.js" defer data-nagishon></script>
+  </body>
+</html>
