@@ -5,6 +5,8 @@
 [![minzipped size](https://img.shields.io/bundlephobia/minzip/nagishon)](https://bundlephobia.com/package/nagishon)
 [![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
+**Website:** [www.nagishon.com](https://www.nagishon.com) (Hebrew): live demo, install snippets and the accessibility checklist.
+
 **בעברית:** `nagishon` הוא תפריט נגישות חינמי בקוד פתוח (MIT) לאתרים, בעברית ומימין לשמאל כברירת מחדל. הוא נותן למבקרים שליטה בגודל הטקסט, בניגודיות, בריווח, בתנועה ועוד, ומקשר להצהרת הנגישות שלכם. הוא פועל בלי שרת, בלי עוגיות ובלי מעקב. חשוב: התפריט הוא כלי עזר למשתמשים ואינו הופך אתר לנגיש או לעומד בדרישות החוק. [README מלא בעברית](README.he.md).
 
 A free, MIT-licensed, framework-agnostic accessibility toolbar (תפריט נגישות) for websites. Hebrew and RTL first, with English, Arabic and Russian built in. Vanilla TypeScript, zero runtime dependencies, no network requests, no cookies.
