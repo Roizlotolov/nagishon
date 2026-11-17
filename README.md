@@ -229,6 +229,10 @@ The last 2 versions of Chrome, Edge, Firefox and Safari (desktop), and Safari on
 
 Runnable examples (script tag, options, Next.js, React/Vite, WordPress, custom button, features subset, events): [examples/](examples/README.md).
 
+## Using nagishon? Tell us (optional)
+
+The widget sends nothing anywhere, so we cannot see who runs it. If you installed it and want to say so, add a comment to the pinned issue [«Who uses nagishon?»](https://github.com/Roizlotolov/nagishon/issues/5): the site (or just its kind), how you installed it, and anything that worked or did not. Voluntary, public, deletable at any time. It is not a support channel; bugs go in their own issue.
+
 ## Disclaimer
 
 nagishon is a free public service, provided **as is**, without warranty of any kind and without any support or response obligation (see the MIT licence). Using it is your choice and your responsibility; it is not legal advice and does not make a site compliant with any law or standard. There is no contact channel for the maintainer besides the public GitHub issue tracker, which is read on a best-effort basis.
