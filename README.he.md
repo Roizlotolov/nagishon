@@ -7,6 +7,8 @@
 [![גודל](https://img.shields.io/bundlephobia/minzip/nagishon)](https://bundlephobia.com/package/nagishon)
 [![רישיון: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
+**אתר הפרויקט:** [www.nagishon.com](https://www.nagishon.com): הדגמה חיה, קטעי התקנה ורשימת הבדיקה לנגישות.
+
 תפריט נגישות חינמי בקוד פתוח (MIT) לאתרים, בעברית ומימין לשמאל כברירת מחדל. כתוב ב־TypeScript ללא תלויות זמן ריצה, ללא בקשות רשת וללא עוגיות. [English README](README.md).
 
 ## מה זה, ומה זה לא
